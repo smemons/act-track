@@ -1,0 +1,38 @@
+.ui-grid-row {
+    text-align: center;
+}
+
+.ui-grid {
+    margin: 10px 0px;
+}
+
+.ui-grid-row>div {
+    padding: 4px 10px;
+}
+
+.em-sm-panel {
+    height: 320px;
+    width: 100%;
+}
+
+.left {
+    width: 200px;
+    float: left;
+}
+
+.right {
+    margin-left: 200px;
+    /* Change this to whatever the width of your left column is*/
+}
+
+.clear {
+    clear: both;
+}
+
+.opend {
+    background-color: #d4e0a1;
+}
+
+.closed {
+    background-color: #f76a6a;
+}

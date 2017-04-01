@@ -1,0 +1,140 @@
+<br/>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <p-panel header="Activities created By me" [toggleable]="true">
+            <div class="at-sm-panel">
+                <p-dataTable [value]="created" [rows]="5" [paginator]="true">
+
+                    <p-column field="title" header="Title"></p-column>
+                    <p-column field="desc" header="Description"></p-column>
+
+                    <p-column field="startDate" header="Start Date">
+                        <template let-col let-act="rowData" pTemplate="body">
+                            {{act[col.field]|date }}
+                        </template>
+                    </p-column>
+                    <p-column field="endDate" header="End Date">
+                        <template let-col let-act="rowData" pTemplate="body">
+                            {{act[col.field]|date }}
+                        </template>
+                    </p-column>
+                    <p-column field="assignee" header="Assignee"></p-column>
+                    <p-column field="opened" header="Status">
+                        <template let-col let-act="rowData" pTemplate="body">
+
+                             <span class="opend" *ngIf="act[col.field]">Open</span>
+                             <span class="closed" *ngIf="!act[col.field]">Closed</span>
+                        </template>
+                    </p-column>
+                    <p-column styleClass="col-button" [style]="{'width':'80px'}">
+                        <template pTemplate="header">
+                            <i class="fa fa-cogs"></i>
+                        </template>
+                        <template let-act="rowData" pTemplate="body">
+                             <button type="button" (click)="viewActivity(act)" pButton  icon="fa-eye"></button>
+                             <button type="button" pButton (click)="editAct(act)" icon="fa-pencil"></button>
+                        </template>
+                    </p-column>
+                </p-dataTable>
+            </div>
+        </p-panel>
+    </div>
+    <div class="col-lg-6 col-md-6">
+        <p-panel header="Activities assigned to me" [toggleable]="true">
+            <div class="at-sm-panel">
+                <p-dataTable [value]="assigned" [rows]="5" [paginator]="true">
+
+                    <p-column field="title" header="Title"></p-column>
+                    <p-column field="desc" header="Description"></p-column>
+
+                    <p-column field="startDate" header="Start Date">
+                        <template let-col let-act="rowData" pTemplate="body">
+                            {{act[col.field]|date }}
+                        </template>
+                    </p-column>
+                    <p-column field="endDate" header="End Date">
+                        <template let-col let-act="rowData" pTemplate="body">
+                            {{act[col.field]|date }}
+                        </template>
+                    </p-column>
+                    <p-column field="createdBy" header="Created By"></p-column>
+                    <p-column field="opened" header="Status">
+                        <template let-col let-act="rowData" pTemplate="body">
+                             <span class="opend" *ngIf="act[col.field]">Open</span>
+                             <span class="closed" *ngIf="!act[col.field]">Closed</span>
+                        </template>
+                    </p-column>
+                    <p-column styleClass="col-button" [style]="{'width':'80px'}">
+                        <template pTemplate="header">
+                            <i class="fa fa-cogs"></i>
+                        </template>
+
+                        <template let-act="rowData" pTemplate="body">
+                            <button type="button" pButton (click)="viewActivity(act)" icon="fa-eye"></button>
+
+                        </template>
+                    </p-column>
+                </p-dataTable>
+
+            </div>
+
+        </p-panel>
+    </div>
+
+</div>
+<p-dialog #aDialog header="Avtivity Details" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="500" [height]="600">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="activity">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="title">Title</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="activity.title" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="desc">Description</label></div>
+            <div class="ui-grid-col-8"><textarea id="desc" pInputTextarea [(ngModel)]="activity.desc"></textarea></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="category">Category</label></div>
+            <div class="ui-grid-col-8">
+                <select class="form-control" id="category" name="category" [(ngModel)]="activity.category" #category="ngModel" required>
+              <option *ngFor="let cat of categories" [ngValue]="cat.title">{{cat.title}}</option>
+            </select> </div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="startDate">Start Date</label></div>
+            <div class="ui-grid-col-8">
+                <p-calendar [appendTo]="aDialog" name="startDate" [icon]="true" [(ngModel)]="activity.startDate" dateFormat="mm/dd/yy"></p-calendar>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="endDate">End Date</label></div>
+            <div class="ui-grid-col-8">
+                <p-calendar [appendTo]="aDialog" name="endDate" [icon]="true" [(ngModel)]="activity.endDate" dateFormat="mm/dd/yy"></p-calendar>
+            </div>
+        </div>
+        <br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="status">Status</label></div>
+            <div class="ui-grid-col-8">
+                <p-inputSwitch name="status" onLabel="Open" offLabel="Close" [(ngModel)]="activity.opened">></p-inputSwitch>
+            </div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="assignee">Assignee</label></div>
+            <div class="ui-grid-col-8">
+                <p-listbox name="assignee" [options]="assignees" [(ngModel)]="activity.assignee" multiple="multiple" checkbox="checkbox" filter="filter" #assignee="ngModel" required>
+                </p-listbox>
+
+            </div>
+        </div>
+
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-check" (click)="updateActivity(activity)" label="Save"></button>
+
+            <button type="button" pButton icon="fa-close" (click)="deleteActivity()" label="Delete"></button>
+        </div>
+    </p-footer>
+</p-dialog>

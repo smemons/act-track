@@ -1,0 +1,109 @@
+<br />
+<button type="button" class="btn btn-default btn-lg" (click)="goback()">
+  <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Back
+</button>
+<br />
+<br />
+<div class="row">
+    <div class="col-lg-12">
+        <p-panel [toggleable]="true" collapsed="true">
+            <p-header>
+                <div class="ui-helper-clearfix">
+                    <span class="ui-panel-title" style="font-size:16px;font-weight: bold; display:inline-block;"><span style="text-decoration: underline;">Activity Detail:</span> {{activity.title}} </span>
+                </div>
+            </p-header>
+            <div class="jumbotron">
+                <h4>{{activity.title}}</h4>
+                <div class="left">Description </div>
+                <div class="right">
+                    {{activity.desc}}
+                </div>
+                <div class="clear"></div>
+
+                <div class="left">Category </div>
+                <div class="right">
+                    {{activity.category}}
+                </div>
+                <div class="clear"></div>
+
+                <div class="left">Status </div>
+                <div class="right">
+                    <span class="opend" *ngIf="activity.opened">Open</span>
+                    <span class="closed" *ngIf="!activity.opened">Closed</span>
+                </div>
+                <div class="clear"></div>
+
+                <div class="left">Created By </div>
+                <div class="right">
+                    {{activity.createdBy}} On {{activity.createdAt|date: 'medium'}}
+                </div>
+                <div class="clear"></div>
+                <div class="left">Start Date</div>
+                <div class="right">
+                    {{activity.startDate|date: 'medium'}}
+                </div>
+                <div class="clear"></div>
+                <div class="left">End Date</div>
+                <div class="right">
+                    {{activity.endDate|date: 'medium'}}
+                </div>
+                <button *ngIf="activity.opened" class="btn btn-primary btn-sm" (click)="showTaskDialog()" role="button">Create Task</button>
+
+            </div>
+        </p-panel>
+    </div>
+</div>
+<br/>
+
+<p-panel [toggleable]="true" collapsed="false">
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <span class="ui-panel-title" style="font-size:16px;font-weight: bold; display:inline-block;">Tasks Detail </span>
+        </div>
+    </p-header>
+
+    <div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+        <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+        <input #gb type="text" pInputText size="50" placeholder="Search Anything">
+    </div>
+    <p-dataTable [value]="tasks" [rows]="10" [paginator]="true" [globalFilter]="gb" #dt>
+        <p-header>List of Tasks</p-header>
+        <p-column field="title" header="Title" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="desc" header="Description" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="createdBy" header="Created By" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="createdAt" header="Created At" [filter]="true" filterPlaceholder="Search">
+            <template let-col let-task="rowData" pTemplate="body">
+                {{task[col.field]|date }}
+            </template>
+        </p-column>
+    </p-dataTable>
+
+
+
+</p-panel>
+<br/>
+<p-dialog #aDialog header="Create Task" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
+    <form name="form" (ngSubmit)="f.form.valid && createPost()" #f="ngForm" novalidate>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
+            <label for="title">Task Title</label>
+            <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" required />
+            <div *ngIf="f.submitted && !title.valid" class="help-block"> Title is required</div>
+        </div>
+
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !desc.valid }">
+            <label for="title">Task Description</label>
+            <textarea class="form-control" name="desc" [(ngModel)]="model.desc" #desc="ngModel" required></textarea>
+            <div *ngIf="f.submitted && !desc.valid" class="help-block"> Description is required</div>
+        </div>
+
+
+
+        <div class="form-group">
+            <button [disabled]="loading" (click)="saveTask(activity._id)" class="btn btn-primary">Save</button>
+            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+            />
+            <button (click)="close()" class="btn btn-link">Cancel</button>
+        </div>
+    </form>
+
+</p-dialog>

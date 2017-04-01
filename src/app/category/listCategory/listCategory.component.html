@@ -1,0 +1,23 @@
+<div *ngFor="let cat of categories" class="list-group">
+
+
+    <a class="list-group-item">
+
+        <div class="media">
+            <button style="margin-left: 10px;" (click)="editCat(cat)" type="button" class="btn btn-primary btn-xs pull-right">Delete</button>
+
+            <button type="button" (click)="deleteCat(cat)" class="btn btn-primary btn-xs pull-right">Edit</button>
+
+
+            <div class="media-body">
+                <h4 class="media-heading">{{cat.title}}</h4>
+                <p>{{cat.desc}}</p>
+            </div>
+
+        </div>
+
+        <div class="clearfix"></div>
+
+    </a>
+
+</div>
