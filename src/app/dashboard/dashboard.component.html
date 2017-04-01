@@ -1,3 +1,113 @@
-<p>
-  dashboard works!
-</p>
+<div class="row">
+
+    <div class="col-lg-12 col-md-12">
+
+
+        <p-panel header="Scheduler" [toggleable]="true">
+
+            <div class="row">
+                <div class="col-xs-2 btn-group">
+                    <button class="btn btn-success btn-xs" disabled type="button"> </button>
+                    <button class="btn btn-default btn-xs" disabled type="button">Created By Me</button>
+                </div>
+                <div class="col-xs-2 btn-group">
+                    <button class="btn btn-primary btn-xs" disabled type="button"> </button>
+                    <button class="btn btn-default btn-xs" disabled type="button">Assigned To Me</button>
+                </div>
+                <div class="col-xs-2 btn-group">
+                    <button class="btn btn-danger btn-xs" disabled type="button"> </button>
+                    <button class="btn btn-default btn-xs" disabled type="button">Closed</button>
+                </div>
+            </div>
+            <hr/>
+            <p-schedule [events]="events" [height]="600" [header]="headerConfig" defaultDate="{{now}}" [editable]="true" (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
+
+
+        </p-panel>
+    </div>
+</div>
+<p-dialog #aDialog header="Activity Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="true" [width]="500" [height]="600">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="activity">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="title">Title</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="activity.title" /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="desc">Description</label></div>
+            <div class="ui-grid-col-8"><textarea id="desc" pInputTextarea [(ngModel)]="activity.desc"></textarea></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="category">Category</label></div>
+            <div class="ui-grid-col-8">
+                <select class="form-control" id="category" name="category" [(ngModel)]="activity.category" #category="ngModel" required>
+              <option *ngFor="let cat of categories" [ngValue]="cat.title">{{cat.title}}</option>
+            </select> </div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="startDate">Start Date</label></div>
+            <div class="ui-grid-col-8">
+                <p-calendar [appendTo]="aDialog" name="startDate" [icon]="true" [(ngModel)]="activity.startDate" dateFormat="mm/dd/yy" dataType="string"></p-calendar>
+            </div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="endDate">End Date</label></div>
+            <div class="ui-grid-col-8">
+                <p-calendar [appendTo]="aDialog" name="endDate" [icon]="true" [(ngModel)]="activity.endDate" dateFormat="mm/dd/yy" dataType="string"></p-calendar>
+            </div>
+        </div>
+        <br>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="status">Status</label></div>
+            <div class="ui-grid-col-8">
+                <p-inputSwitch name="status" onLabel="Open" offLabel="Close" [(ngModel)]="activity.opened">></p-inputSwitch>
+            </div>
+        </div>
+
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="assignee">Assignee</label></div>
+            <div class="ui-grid-col-8">
+                <p-listbox name="assignee" [options]="assignees" [(ngModel)]="activity.assignee" multiple="multiple" checkbox="checkbox" filter="filter" #assignee="ngModel" required>
+                </p-listbox>
+
+            </div>
+        </div>
+
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-check" (click)="saveevent.date.format();Activity(activity)" label="Save"></button>
+
+            <button type="button" pButton icon="fa-close" (click)="close()" label="Cancel"></button>
+        </div>
+    </p-footer>
+</p-dialog>
+
+
+
+<!--<div class="row">
+    <div class="col-lg-4 col-md-4">
+        <p-panel header="Created by Me" [toggleable]="true">
+            <div class="em-sm-panel">
+                <div style="width: 300px;height: 300px;">
+
+                </div>
+            </div>
+        </p-panel>
+    </div>
+    <div class="col-lg-4 col-md-4">
+        <p-panel header="Location" [toggleable]="true">
+            <div class="em-sm-panel">
+
+            </div>
+        </p-panel>
+    </div>
+    <div class=" col-lg-4 col-md-4 ">
+
+        <p-panel header="Chat " [toggleable]="true">
+            <div class="em-sm-panel">
+
+            </div>
+        </p-panel>
+    </div>
+</div>-->

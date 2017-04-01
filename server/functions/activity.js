@@ -57,6 +57,20 @@ var getAll = function(req, res, next) {
     });
 }
 
+//getAll By userId
+var getAllByUserId = function(req, res, next) {
+    var userId = req.params.id;
+    Activity.find({ $or: [{ 'createdBy': userId }, { 'assignee': { $all: [userId] } }] }, function(err, docs) {
+        if (err) {
+
+            next(err);
+        } else {
+
+
+            res.json(docs);
+        }
+    });
+}
 
 //all created
 var getAllCreated = function(req, res, next) {
@@ -108,7 +122,8 @@ module.exports = {
     getAll: getAll,
     getAllAssigned: getAllAssigned,
     getAllCreated: getAllCreated,
-    updateActivity: updateActivity
+    updateActivity: updateActivity,
+    getAllByUserId: getAllByUserId
 
 
 }

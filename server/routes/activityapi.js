@@ -10,6 +10,7 @@ users.get('/:id', uf.getActivity);
 users.post('/', uf.saveActivity);
 users.put('/', uf.updateActivity);
 users.get('/all', uf.getAll);
+users.get('/allByUserId/:id', uf.getAllByUserId);
 users.get('/allAssigned/:id', uf.getAllAssigned);
 users.get('/allCreated/:id', uf.getAllCreated);
 users.get('/:id', function(req, res) {});

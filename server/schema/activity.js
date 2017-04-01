@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-var ObjectId = Schema.ObjectId;
+
 
 const ActSchema = new Schema({
-    actId: ObjectId,
+
     title: String,
     desc: String,
     startDate: { type: Date, default: Date.now },

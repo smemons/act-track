@@ -25,7 +25,7 @@ import { RoleComponent } from './role/role.component';
 import { UserComponent } from './user/user.component';
 import { AlertComponent } from './alert/alert.component';
 import {GrowlModule,ListboxModule,CalendarModule,PanelModule,DataTableModule,
-  InputTextareaModule,InputTextModule,DialogModule,InputSwitchModule} from 'primeng/primeng';
+  InputTextareaModule,InputTextModule,DialogModule,InputSwitchModule,ScheduleModule} from 'primeng/primeng';
 import { CategoryComponent } from './category/category.component';
 import { ActivityComponent } from './activity/activity.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -63,6 +63,7 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     InputTextModule,
     DialogModule,
     InputSwitchModule,
+    ScheduleModule,
     RouterModule.forRoot(ROUTES)
   ],
   providers: [

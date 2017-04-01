@@ -44,7 +44,7 @@ update(activity:Activity)
       .map((response: Response) => response.json());
   }
 
-//get all Category
+//get all activity
  getAll() {
     return this
       .http
@@ -52,6 +52,13 @@ update(activity:Activity)
       .map((response: Response) => response.json());
   }
 
+//get all Category
+ getAllByUserId(id:String) {
+    return this
+      .http
+      .get('/api/activity/allByUserId/'+id)
+      .map((response: Response) => response.json());
+  }
   //get all by userid  activities
    getAllAssigned(userId:String) {
 
