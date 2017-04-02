@@ -27,7 +27,7 @@ export class DashboardComponent implements OnInit {
   assignees: SelectItem[];
   categories:Category[];
    headerConfig: any;
-  now = moment();
+
   isWriter:Boolean;
   updating:Boolean;
 
@@ -54,6 +54,7 @@ export class DashboardComponent implements OnInit {
        });
     });
     this.categoryService.getAll().subscribe(cat=>this.categories=cat);
+
     this.getAllActivitiesRelated();
 
   this.headerConfig = {
@@ -142,7 +143,7 @@ handleDayClick(event) {
     //in case of update. change the output on scheduler
     private updateSchedulerOnUpdate(act)
     {
-      debugger;
+
       let index:number=0;
       this.events.forEach(item=>{
         if(item.id===act._id)
@@ -159,8 +160,10 @@ handleDayClick(event) {
       {
 
         let uid=this.authService.getCurrentUser();
-        this.activityService.getAllByUserId(uid).subscribe(acts=>{
+     //   this.activityService.getAllByUserId(uid).subscribe(acts=>{
+        this.activityService.getAllCreated(uid).subscribe(acts=>{
           acts.forEach(element=>{
+
           let obj=this.formCalanderItem(element);
           this.events.push(obj);
           })
