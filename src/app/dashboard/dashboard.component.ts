@@ -68,10 +68,11 @@ handleEventClick(event){
 
   this.updating=true;
   let id=event.calEvent.id;
+  this.dialogVisible=true;
   this.isWriter=event.calEvent.className[0]==='creator' ? true : false;
   this.activityService.getActivity(id).subscribe(act=>
               {
-                this.dialogVisible=true;
+
                 this.activity=act;
                 this.activity.startDate = moment(act.startDate).toDate();
                 this.activity.endDate = moment(act.endDate).toDate();
@@ -79,14 +80,14 @@ handleEventClick(event){
 }
 
 handleDayClick(event) {
-
+        this.dialogVisible = true;
         this.updating=false;
         this.isWriter=true;
         this.activity = new Activity();
         this.activity.startDate = moment(event.date).toDate();
          this.activity.endDate = moment(event.date).toDate();
         this.activity.opened=true;
-        this.dialogVisible = true;
+
 
         //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
         this.cd.detectChanges();
