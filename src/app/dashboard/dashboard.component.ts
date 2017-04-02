@@ -107,6 +107,7 @@ handleDayClick(event) {
                    console.log('Category updated - Service!');
                    this.alertService.success('Activty updated!');
                    this.dialogVisible=false;
+                   this.updateSchedulerOnUpdate(act);
 
                 },
                 error => {
@@ -137,18 +138,34 @@ handleDayClick(event) {
 
   }
 
-  private getAllActivitiesRelated()
-  {
+    //in case of update. change the output on scheduler
+    private updateSchedulerOnUpdate(act)
+    {
+      debugger;
+      let index:number=0;
+      this.events.forEach(item=>{
+        if(item.id===act._id)
+        {
+          let obj=this.formCalanderItem(act);
+          this.events[index]=obj;
+        }
+        index++;
+      });
+    }
 
-    let uid=this.authService.getCurrentUser();
-    this.activityService.getAllByUserId(uid).subscribe(acts=>{
-      acts.forEach(element=>{
-      let obj=this.formCalanderItem(element);
-      this.events.push(obj);
-      })
+      //get all activities related to logged in user
+      private getAllActivitiesRelated()
+      {
 
-    });
-  }
+        let uid=this.authService.getCurrentUser();
+        this.activityService.getAllByUserId(uid).subscribe(acts=>{
+          acts.forEach(element=>{
+          let obj=this.formCalanderItem(element);
+          this.events.push(obj);
+          })
+
+        });
+      }
 
   private formCalanderItem(element):Object
   {
