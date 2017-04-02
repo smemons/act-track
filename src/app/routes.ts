@@ -13,7 +13,8 @@ import { HomeComponent } from './home/home.component';
 export const ROUTES = [
     {
       path: 'viewActivity/:id',
-      component: ViewActivityComponent
+      component: ViewActivityComponent,
+       canActivate: [AuthGuard]
 
     },
     {
@@ -68,7 +69,7 @@ export const ROUTES = [
     },
     {
         path: '',
-        redirectTo: '/home',
+        redirectTo: '/dashboard',
         pathMatch: 'full'
     },
     {
