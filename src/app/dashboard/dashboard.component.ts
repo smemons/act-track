@@ -160,8 +160,7 @@ handleDayClick(event) {
       {
 
         let uid=this.authService.getCurrentUser();
-     //   this.activityService.getAllByUserId(uid).subscribe(acts=>{
-        this.activityService.getAllCreated(uid).subscribe(acts=>{
+     this.activityService.getAllByUserId(uid).subscribe(acts=>{
           acts.forEach(element=>{
 
           let obj=this.formCalanderItem(element);
