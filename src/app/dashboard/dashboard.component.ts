@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { forEach } from '@angular/router/src/utils/collection';
 import { SelectItem } from 'primeng/primeng';
 import { Category } from './../models/category';
@@ -27,6 +28,8 @@ export class DashboardComponent implements OnInit {
   categories:Category[];
    headerConfig: any;
   now = moment();
+  isWriter:Boolean;
+  updating:Boolean;
 
   constructor(private authService:AuthService,
               private userService:Userservice,
@@ -51,29 +54,7 @@ export class DashboardComponent implements OnInit {
        });
     });
     this.categoryService.getAll().subscribe(cat=>this.categories=cat);
-    let uid=this.authService.getCurrentUser();
-
-    this.activityService.getAllByUserId(uid).subscribe(acts=>{
-      acts.forEach(element=>{
-
-        let col=new Object();
-        col["title"] = element.title;
-        col['start']=moment(element.startDate).toDate();
-        col['end']=moment(element.endDate).toDate();
-        if(element.createdBy===uid)
-        {
-            col['color']=element.opened?'#5CB85C':'#D9534F';
-        }
-        else
-        {
-           col['color']=element.opened?'#337AB7':'#D9534F';
-        }
-        col['textColor']='black';
-
-       this.events.push(col);
-      })
-
-    });
+    this.getAllActivitiesRelated();
 
   this.headerConfig = {
 			left: 'prev,next today',
@@ -83,8 +64,24 @@ export class DashboardComponent implements OnInit {
 
    }
 
+handleEventClick(event){
+
+  this.updating=true;
+  let id=event.calEvent.id;
+  this.isWriter=event.calEvent.className[0]==='creator' ? true : false;
+  this.activityService.getActivity(id).subscribe(act=>
+              {
+                this.dialogVisible=true;
+                this.activity=act;
+                this.activity.startDate = moment(act.startDate).toDate();
+                this.activity.endDate = moment(act.endDate).toDate();
+              });
+}
+
 handleDayClick(event) {
 
+        this.updating=false;
+        this.isWriter=true;
         this.activity = new Activity();
         this.activity.startDate = moment(event.date).toDate();
          this.activity.endDate = moment(event.date).toDate();
@@ -100,16 +97,36 @@ handleDayClick(event) {
       this.activity=new Activity();
     }
 
+//update the Activity
+  updateActivity(act:Activity)
+  {
+
+  this.activityService.update(act)
+            .subscribe(
+                data => {
+                   console.log('Category updated - Service!');
+                   this.alertService.success('Activty updated!');
+                   this.dialogVisible=false;
+
+                },
+                error => {
+                    //this.alertService.error(error);
+                    console.log(error);
+                    this.alertService.error(error);
+
+                });
+  }
     saveActivity(act:Activity){
 
-         debugger;
          this.activityService.create(act)
             .subscribe(
                 data => {
                    console.log('Activity created - Service!');
                    this.alertService.success('Activty created!');
+                   this.events.push(this.formCalanderItem(this.activity));
                    this.dialogVisible=false;
                    this.activity=new Activity();
+
                 },
                 error => {
                     //this.alertService.error(error);
@@ -118,5 +135,46 @@ handleDayClick(event) {
 
                 });
 
+  }
+
+  private getAllActivitiesRelated()
+  {
+
+    let uid=this.authService.getCurrentUser();
+    this.activityService.getAllByUserId(uid).subscribe(acts=>{
+      acts.forEach(element=>{
+      let obj=this.formCalanderItem(element);
+      this.events.push(obj);
+      })
+
+    });
+  }
+
+  private formCalanderItem(element):Object
+  {
+      let uid=this.authService.getCurrentUser();
+      let col=new Object();
+
+        col["id"]=element._id;
+        col["title"] = element.title;
+        col['start']=moment(element.startDate).toDate();
+        col['end']=moment(element.endDate).toDate();
+        col["allDay"] = true;
+        if(element.createdBy===uid)
+        {
+            col['color']=element.opened?'#6FF5B2':'#D9534F';
+            col['className']='creator';
+        }
+        else
+        {
+           col['color']=element.opened?'#8A9AFB':'#D9534F';
+           col['className']='assignee';
+        }
+        col['textColor']='black';
+        return col;
+  }
+  showDetail(id:String)
+  {
+    this.activityService.viewActivity(id);
   }
 }
