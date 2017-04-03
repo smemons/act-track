@@ -9,14 +9,14 @@ import { ActivityService } from './../services/activity.service';
 import { CategoryService } from './../services/category.service';
 import { Userservice } from './../services/userservice.service';
 import { AuthService } from './../services/auth.service';
-import { ChangeDetectorRef, Component, OnInit,AfterViewChecked } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 declare var moment: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit, AfterViewChecked {
+export class DashboardComponent implements OnInit{
 
   events: any[];
   dialogVisible: boolean = false;
@@ -39,12 +39,10 @@ export class DashboardComponent implements OnInit, AfterViewChecked {
               private router:Router,
               private cd: ChangeDetectorRef
               ) { }
-ngAfterViewChecked(){
- console.log('ngAfterViewChecked -DashboardComponent')
-   }
+
 
   ngOnInit() {
-    console.log('ngOnInit -DashboardComponent')
+
     this.events=[];
     this.allActivities=[];
     //get all the users List
@@ -170,6 +168,7 @@ handleDayClick(event) {
           this.events.push(obj);
           })
 
+          console.log('getAllActivitiesRelated :'+JSON.stringify(this.events));
         });
       }
 
