@@ -15,9 +15,7 @@ var saveTask = function(req, res, next) {
             return next(err);
         } else {
 
-            return res.json({
-                message: 'Task created!'
-            });
+            return res.json(task);
         }
     });
 }

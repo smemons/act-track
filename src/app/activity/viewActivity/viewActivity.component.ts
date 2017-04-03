@@ -4,7 +4,7 @@ import { TaskService } from './../../services/task.service';
 import { ActivityService } from './../../services/activity.service';
 import { Activity } from './../../models/activity';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-viewActivity',
@@ -20,7 +20,8 @@ export class ViewActivityComponent implements OnInit {
   constructor(private route: ActivatedRoute,private router: Router,
               private taskService:TaskService,
               private alertService:AlertService,
-              private activityService:ActivityService) { }
+              private activityService:ActivityService,
+              private cd:ChangeDetectorRef) { }
 
   ngOnInit() {
       this.tasks=[];
@@ -53,7 +54,9 @@ export class ViewActivityComponent implements OnInit {
                 data => {
                    console.log('Task created - Service!');
                     this.alertService.success("Task saved!");
-                    this.taskService.getAllByActivityId(id).subscribe(tasks=>this.tasks=tasks);
+                    //this.taskService.getAllByActivityId(id).subscribe(tasks=>this.tasks=tasks);
+                    this.tasks.push(data);
+                    this.cd.detectChanges();
 
                 },
                 error => {

@@ -102,7 +102,6 @@ handleDayClick(event) {
 //update the Activity
   updateActivity(act:Activity)
   {
-
   this.activityService.update(act)
             .subscribe(
                 data => {
@@ -110,7 +109,7 @@ handleDayClick(event) {
                    this.alertService.success('Activty updated!');
                    this.dialogVisible=false;
                    this.updateSchedulerOnUpdate(act);
-
+                   this.cd.detectChanges();
                 },
                 error => {
                     //this.alertService.error(error);
@@ -129,6 +128,7 @@ handleDayClick(event) {
                    this.events.push(this.formCalanderItem(this.activity));
                    this.dialogVisible=false;
                    this.activity=new Activity();
+                   this.cd.detectChanges();
 
                 },
                 error => {
