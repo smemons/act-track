@@ -168,7 +168,7 @@ handleDayClick(event) {
           this.events.push(obj);
           })
 
-          console.log('getAllActivitiesRelated :'+JSON.stringify(this.events));
+          //console.log('getAllActivitiesRelated :'+JSON.stringify(this.events));
         });
       }
 

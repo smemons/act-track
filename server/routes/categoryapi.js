@@ -8,11 +8,10 @@ const uf = require('../functions/category');
 var users = express.Router();
 users.get('/', uf.getCategory);
 users.post('/', uf.saveCategory);
-
+users.put('/', uf.updateCategory);
 users.get('/all', uf.getAll);
-users.get('/:id', function(req, res) {});
-users.patch('/:id', function(req, res) {});
-users.delete('/:id', function(req, res) {});
+users.delete('/:id', uf.deleteCategory);
+
 
 
 

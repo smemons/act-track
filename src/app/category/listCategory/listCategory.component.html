@@ -1,23 +1,40 @@
-<div *ngFor="let cat of categories" class="list-group">
+<p-dataTable [value]="categories">
+    <p-column field="title" header="Title"></p-column>
+    <p-column field="desc" header="Description"></p-column>
+    <p-column field="createdBy" header="Created By"></p-column>
 
+    <p-column styleClass="col-button" [style]="{'width':'80px'}">
+        <template pTemplate="header">
+      <i class="fa fa-cogs"></i>
+    </template>
 
-    <a class="list-group-item">
+        <template let-cat="rowData" pTemplate="body">
+      <button type="button" pButton (click)="editCat(cat)" icon="fa-pencil"></button>
+      <button type="button" (click)="deleteCat(cat)" pButton icon="fa-trash"></button>
+    </template>
+    </p-column>
+</p-dataTable>
 
-        <div class="media">
-            <button style="margin-left: 10px;" (click)="editCat(cat)" type="button" class="btn btn-primary btn-xs pull-right">Delete</button>
-
-            <button type="button" (click)="deleteCat(cat)" class="btn btn-primary btn-xs pull-right">Edit</button>
-
-
-            <div class="media-body">
-                <h4 class="media-heading">{{cat.title}}</h4>
-                <p>{{cat.desc}}</p>
+<p-dialog header="Category Details" [(visible)]="dialogVisible" [responsive]="true" showEffect="fade" [modal]="false" [contentStyle]="{'overflow':'visible'}" [style]="{'overflow':'visible'}" [resizable]="false">
+    <div class="ui-grid ui-grid-responsive ui-fluid" *ngIf="category">
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="title">Title</label></div>
+            <div class="ui-grid-col-8"><input pInputText id="title" [(ngModel)]="category.title" required /></div>
+        </div>
+        <div class="ui-grid-row">
+            <div class="ui-grid-col-4"><label for="desc">Description</label></div>
+            <div class="ui-grid-col-8"><textarea class="form-control" name="desc" [(ngModel)]="category.desc" #desc="ngModel" required></textarea>
             </div>
-
         </div>
 
-        <div class="clearfix"></div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
+            <button type="button" pButton icon="fa-window-close-o" (click)="cancel()" label="Cancel"></button>
+            <button type="button" pButton icon="fa-floppy-o" (click)="updateCategory(category)" label="Update"></button>
 
-    </a>
+        </div>
+    </p-footer>
 
-</div>
+</p-dialog>
+<p-confirmDialog width="425"></p-confirmDialog>

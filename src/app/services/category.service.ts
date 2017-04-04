@@ -26,5 +26,27 @@ create(category:Category)
       .get('/api/category/all')
       .map((response: Response) => response.json());
   }
+//update Category
+update(cat:Category)
+{
+  cat.createdBy=this.authService.getCurrentUser();
+   console.log('putting/updating Category from service: ' + cat);
 
+    return this
+      .http
+      .put('/api/category', cat)
+      .map((response: Response) => response);
+}
+//delete
+//update Category
+delete(id:String)
+{
+
+
+
+    return this
+      .http
+      .delete('/api/category/'+id)
+      .map((response: Response) => response);
+}
 }
