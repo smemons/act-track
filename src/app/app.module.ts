@@ -1,3 +1,4 @@
+import { FocusService } from './services/focus.service';
 import { ListFoucsComponent } from './focus/listFoucs/listFoucs.component';
 import { AddFocusComponent } from './focus/addFocus/addFocus.component';
 import { ListVisComponent } from './visibility/listVis/listVis.component';
@@ -91,7 +92,8 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     TaskService,
     ConfirmationService,
     DeptService,
-    VisibilityService
+    VisibilityService,
+    FocusService
   ],
   bootstrap: [AppComponent]
 })

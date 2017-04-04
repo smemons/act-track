@@ -12,6 +12,7 @@ const actapi = require('./server/routes/activityapi');
 const taskapi = require('./server/routes/taskapi');
 const deptapi = require('./server/routes/deptapi');
 const visapi = require('./server/routes/visibilityapi');
+const focusapi = require('./server/routes/focusapi');
 
 
 
@@ -29,6 +30,7 @@ app.use('/api/activity', actapi);
 app.use('/api/task', taskapi);
 app.use('/api/dept', deptapi);
 app.use('/api/vis', visapi);
+app.use('/api/focus', focusapi);
 
 
 app.get('*', function(req, res) {

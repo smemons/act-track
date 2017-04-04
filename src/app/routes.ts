@@ -18,12 +18,12 @@ import { PageNotFoundComponent } from './pageNotFound/pageNotFound.component';
 import { HomeComponent } from './home/home.component';
 export const ROUTES = [
   {
-        path: 'addfocus',
+        path: 'addFocus',
         component:AddFocusComponent,
          canActivate: [AuthGuard]
     },
     {
-        path: 'listFocus',
+        path: 'listFocuses',
         component:ListFoucsComponent,
          canActivate: [AuthGuard]
     },

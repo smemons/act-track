@@ -1,3 +1,6 @@
+import { Router } from '@angular/router';
+import { AlertService } from './../../services/alert.service';
+import { FocusService } from './../../services/focus.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +10,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddFocusComponent implements OnInit {
 
-  constructor() { }
+   model : any = {};
+  loading = false;
+  constructor(private focusService : FocusService, private alertService : AlertService, private router : Router) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+  createFocus() {
+
+    console.log(this.model);
+    this.loading = true;
+    this
+      .focusService
+      .create(this.model)
+      .subscribe(data => {
+        console.log('Focus created - Service!');
+        this
+          .alertService
+          .success('Focus created!');
+
+          this.router.navigate(['/home']);
+      }, error => {
+
+        console.log(error._body);
+        this
+          .alertService
+          .error(error._body);
+        this.loading = false;
+      });
+
   }
 
 }
