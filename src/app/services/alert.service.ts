@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
@@ -6,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class AlertService {
 
 private subject = new Subject<any>();
-  constructor() { }
+  constructor(private location:Location) { }
 
    warn(message: string) {
          this.subject.next({ severity:'warn', summary:' Warning', detail: message});
@@ -29,5 +30,6 @@ private subject = new Subject<any>();
     getMessage(): Observable <any> {
         return this.subject.asObservable();
     }
+
 
 }

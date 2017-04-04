@@ -10,6 +10,8 @@ const userapi = require('./server/routes/userapi');
 const catapi = require('./server/routes/categoryapi');
 const actapi = require('./server/routes/activityapi');
 const taskapi = require('./server/routes/taskapi');
+const deptapi = require('./server/routes/deptapi');
+const visapi = require('./server/routes/visibilityapi');
 
 
 
@@ -25,6 +27,8 @@ app.use('/api/user', userapi);
 app.use('/api/category', catapi);
 app.use('/api/activity', actapi);
 app.use('/api/task', taskapi);
+app.use('/api/dept', deptapi);
+app.use('/api/vis', visapi);
 
 
 app.get('*', function(req, res) {

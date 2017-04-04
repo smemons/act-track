@@ -1,3 +1,11 @@
+import { ListFoucsComponent } from './focus/listFoucs/listFoucs.component';
+import { AddFocusComponent } from './focus/addFocus/addFocus.component';
+import { ListVisComponent } from './visibility/listVis/listVis.component';
+import { VisibilityService } from './services/visibility.service';
+import { AddVisComponent } from './visibility/addVis/addVis.component';
+import { ListDeptComponent } from './dept/listDept/listDept.component';
+import { DeptService } from './services/dept.service';
+import { AddDeptComponent } from './dept/addDept/addDept.component';
 import { TaskService } from './services/task.service';
 
 import { ActivityService } from './services/activity.service';
@@ -48,7 +56,13 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     ActivityComponent,
     DashboardComponent,
     ListActivitiesComponent,
-    ViewActivityComponent
+    ViewActivityComponent,
+    AddDeptComponent,
+    ListDeptComponent,
+    AddVisComponent,
+    ListVisComponent,
+    AddFocusComponent,
+    ListFoucsComponent
 ],
   imports: [
     BrowserModule,
@@ -75,7 +89,9 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     CategoryService,
     ActivityService,
     TaskService,
-    ConfirmationService
+    ConfirmationService,
+    DeptService,
+    VisibilityService
   ],
   bootstrap: [AppComponent]
 })

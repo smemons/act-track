@@ -1,4 +1,4 @@
-import { element } from 'protractor';
+
 import {
   ConfirmationService
 } from 'primeng/primeng';
