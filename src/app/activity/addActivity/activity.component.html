@@ -12,19 +12,6 @@
             <textarea class="form-control" name="desc" [(ngModel)]="model.desc" #desc="ngModel" required></textarea>
             <div *ngIf="f.submitted && !desc.valid" class="help-block"> Description is required</div>
         </div>
-        <div class="row">
-            <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted && !startDate.valid }">
-                <label for="startDate">Start Date</label>
-                <p-calendar inputId="startDate" name="startDate" [(ngModel)]="model.startDate" [showTime]="true" #startDate="ngModel" required> </p-calendar>
-
-            </div>
-            <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted && !endDate.valid }">
-
-                <label for="endDate">End Date</label>
-                <p-calendar inputId="endDate" name="startDate" [(ngModel)]="model.endDate" [showTime]="true" #endDate="ngModel" required> </p-calendar>
-                <div *ngIf="f.submitted && !startDate.valid && !endDate.valid" class="help-block">Start and End Date is required</div>
-            </div>
-        </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !category.valid }">
             <label for="category">Category</label>
             <select class="form-control" id="category" name="category" [(ngModel)]="model.category" #category="ngModel" required>
@@ -32,10 +19,51 @@
             </select>
             <div *ngIf="f.submitted && !category.valid" class="help-block"> Category is required</div>
         </div>
+        <div class="row">
+            <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted  }">
+                <label for="dept">Department</label>
+                <p-multiSelect name="dept" [options]="depts" [(ngModel)]="model.deptId" [style]="{'width':'100%'}" #dept="ngModel" required></p-multiSelect>
+                <!--<p-listbox name="dept" [options]="depts" [(ngModel)]="model.deptId" multiple="multiple" checkbox="checkbox" filter="filter" #dept="ngModel" required>
+            </p-listbox>-->
+
+                <div *ngIf="f.submitted && !dept.valid" class="help-block"> Department required</div>
+            </div>
+            <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted  }">
+                <label for="focus">Focus Area</label>
+                <p-dropdown name="focus" [options]="focuses" [(ngModel)]="model.focus" [style]="{'width':'100%'}" #focus="ngModel"></p-dropdown>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted && !startDate.valid }">
+                <label for="startDate">Start Date</label>
+                <p-calendar inputId="startDate" name="startDate" [(ngModel)]="model.startDate" #startDate="ngModel" required> </p-calendar>
+                <div *ngIf="f.submitted && !startDate.valid" class="help-block"> Start Date is required</div>
+
+            </div>
+            <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted && !endDate.valid }">
+
+                <label for="endDate">End Date</label>
+                <p-calendar inputId="endDate" name="startDate" [(ngModel)]="model.endDate" #endDate="ngModel" required> </p-calendar>
+                <div *ngIf="f.submitted && !endDate.valid" class="help-block"> End Date is required</div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted  }">
+                <label for="phase">Phase</label>
+                <p-dropdown name="phase" [options]="phases" [(ngModel)]="model.phase" [style]="{'width':'100%'}" #phase="ngModel" required></p-dropdown>
+                <div *ngIf="f.submitted && !phase.valid" class="help-block"> Phase is required</div>
+            </div>
+            <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted  }">
+                <label for="visibility"> Visibilities</label>
+                <p-multiSelect name="visibility" [options]="visibilities" [(ngModel)]="model.visId" [style]="{'width':'100%'}" #visibility="ngModel"></p-multiSelect>
+                <!--<div *ngIf="f.submitted && !dept.valid" class="help-block"> Department required</div>-->
+            </div>
+        </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted  }">
-            <label for="sponser">Sponser</label>
-            <p-autoComplete inputId="sponser" name="sponser" [(ngModel)]="model.sponser" [suggestions]="foundUsers" (completeMethod)="searchTypeAheadUsers($event)" placeholder="Type User Name" [multiple]="true"></p-autoComplete>
+            <label for="sponsor">Sponsor</label>
+            <p-autoComplete inputId="sponsor" name="sponsor" [(ngModel)]="model.sponsor" [suggestions]="foundUsers" (completeMethod)="searchTypeAheadUsers($event)" placeholder="Type User Name" [multiple]="true"></p-autoComplete>
         </div>
 
 
@@ -51,16 +79,19 @@
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !status.valid }">
             <label for="status">Status</label>
-            <p-selectButton [style]="{'border-radius':'25px'}" name="status" inputId="status" [options]="statuses" [(ngModel)]="model.status" #status="ngModel" required></p-selectButton>
+            <p-selectButton name="status" inputId="status" [options]="statuses" [(ngModel)]="model.status" #status="ngModel" required></p-selectButton>
 
             <div *ngIf="f.submitted && !status.valid" class="help-block">Status is required</div>
         </div>
 
         <div class="form-group">
-            <label for="status">Completion (%)</label>
-            <input type="text" pInputText [(ngModel)]="model.percentage" style="width:190px" />
-            <p-slider [(ngModel)]="model.percentage" [style]="{'width':'200px'}"></p-slider>
-
+            <label for="percentage">Completion (%)</label>
+            <input id="percentage" name="percentage" type="text" pInputText [(ngModel)]="model.percentage" style="width:190px" />
+            <p-slider name="percentage" [(ngModel)]="model.percentage" [style]="{'width':'200px'}"></p-slider>
+        </div>
+        <div class="form-group">
+            <label for="fileupload">Upload Documents</label>
+            <p-fileUpload name="myfile[]" url="http://localhost:3000/upload" multiple="multiple" accept="image/*" maxFileSize="1000000"></p-fileUpload>
         </div>
 
         <div class="form-group">

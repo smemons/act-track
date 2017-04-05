@@ -10,14 +10,14 @@ const ActSchema = new Schema({
     startDate: { type: Date, default: Date.now },
     endDate: { type: Date, default: Date.now },
     status: String,
-    sponser: [String],
+    sponsor: [String],
     assignee: [String],
     percentage: Number, // percentage of completion
     catId: String, //category Id
-    deptId: String, //dept Id
+    deptId: [String], //dept Id
     focusId: String, //focus Id
     phaseId: String, //phase Id
-    visId: String, //Visisblity ID
+    visId: [String], //Visisblity ID
     createdAt: { type: Date, default: Date.now },
     createdBy: String,
     updatedAt: { type: Date, default: Date.now },

@@ -18,11 +18,15 @@ import {SelectItem} from 'primeng/primeng';
 export class ActivityComponent implements OnInit {
     model: any = {};
     loading = false;
-    users :User[];
-    assignees: SelectItem[];
-    categories:Category[];
-    foundUsers:String[];
+    users: User[];
+    depts: SelectItem[];
+    categories: Category[];
+    foundUsers: String[];
     statuses: SelectItem[];
+    focuses: SelectItem[];
+    visibilities: SelectItem[];
+    phases: SelectItem[];
+
   constructor(private userService:Userservice,
               private utilityService:UtilityService,
               private alertService:AlertService,
@@ -30,28 +34,55 @@ export class ActivityComponent implements OnInit {
               private router:Router ) { }
 
   ngOnInit() {
-    // //get all the users List
-    // this.userService.getAll().subscribe(usrs=>{
-    //   this.assignees = [];
-    //   //get all the users and create
-    //    usrs.forEach(user=> {
+    // //get all the dept List
+    this.depts = [];
+    this.utilityService.getAllDepts().subscribe(depts=>{
 
-    //         this.assignees.push({label:user.username+'-('+ user.firstName+')' , value:user.username});
-    //    });
-    // });
+      //get all the users and create
+       depts.forEach(dept=> {
+
+            this.depts.push({label:dept.title, value:dept._id});
+       });
+    });
 
 
 
     this.utilityService.getAllCategories().subscribe(cat=>this.categories=cat);
 
-    //get all Status
+  //get all Status
 this.statuses=[];
     this.utilityService.getAllStatus().subscribe(sts=>{
-
-
     sts.forEach(status => {
 
       this.statuses.push({label:status.title, value:status._id});
+    });
+  })
+
+   //get all focus areas
+this.focuses=[];
+    this.utilityService.getAllFocuses().subscribe(foc=>{
+    foc.forEach(focus => {
+
+      this.focuses.push({label:focus.title, value:focus._id});
+    });
+  })
+
+  /////////////////////
+   //get all visiblities areas
+this.visibilities=[];
+    this.utilityService.getAllVisibilities().subscribe(vis=>{
+    vis.forEach(visb => {
+
+      this.visibilities.push({label:visb.title, value:visb._id});
+    });
+  })
+  /////////////////////
+   //get all phases areas
+this.phases=[];
+    this.utilityService.getAllPhases().subscribe(phase=>{
+    phase.forEach(ph => {
+
+      this.phases.push({label:ph.title, value:ph._id});
     });
     })
   }

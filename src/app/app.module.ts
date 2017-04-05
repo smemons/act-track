@@ -43,7 +43,8 @@ import { UserComponent } from './user/user.component';
 import { AlertComponent } from './alert/alert.component';
 import {GrowlModule,ListboxModule,CalendarModule,PanelModule,DataTableModule,
   InputTextareaModule,InputTextModule,DialogModule,InputSwitchModule,
-  ScheduleModule,ConfirmDialogModule,ConfirmationService,AutoCompleteModule,SelectButtonModule,SliderModule} from 'primeng/primeng';
+  ScheduleModule,ConfirmDialogModule,ConfirmationService,AutoCompleteModule,
+  SelectButtonModule,SliderModule,MultiSelectModule,DropdownModule,FileUploadModule} from 'primeng/primeng';
 import { CategoryComponent } from './category/category.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListActivitiesComponent } from './activity/listActivities/listActivities.component';
@@ -95,6 +96,9 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     AutoCompleteModule,
     SelectButtonModule,
     SliderModule,
+    MultiSelectModule,
+    DropdownModule,
+    FileUploadModule,
 
     RouterModule.forRoot(ROUTES)
   ],

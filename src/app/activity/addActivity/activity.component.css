@@ -1,3 +1,7 @@
 label {
     display: block;
 }
+
+.at100-col {
+    width: 100%;
+}
