@@ -13,7 +13,8 @@ const taskapi = require('./server/routes/taskapi');
 const deptapi = require('./server/routes/deptapi');
 const visapi = require('./server/routes/visibilityapi');
 const focusapi = require('./server/routes/focusapi');
-
+const phaseapi = require('./server/routes/phaseapi');
+const statusapi = require('./server/routes/statusapi');
 
 
 // // Parsers for POST data
@@ -31,7 +32,8 @@ app.use('/api/task', taskapi);
 app.use('/api/dept', deptapi);
 app.use('/api/vis', visapi);
 app.use('/api/focus', focusapi);
-
+app.use('/api/phase', phaseapi);
+app.use('/api/status', statusapi);
 
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname, 'dist/index.html'));

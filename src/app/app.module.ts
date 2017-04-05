@@ -1,3 +1,11 @@
+import { StatusService } from './services/status.service';
+import { ListStatusComponent } from './status/listStatus/listStatus.component';
+import { AddStatusComponent } from './status/addStatus/addStatus.component';
+import { UtilityService } from './services/utility.service';
+import { ActivityComponent } from './activity/addActivity/activity.component';
+import { ListPhaseComponent } from './phase/listPhase/listPhase.component';
+import { AddPhaseComponent } from './phase/addPhase/addPhase.component';
+import { PhaseService } from './services/phase.service';
 import { FocusService } from './services/focus.service';
 import { ListFoucsComponent } from './focus/listFoucs/listFoucs.component';
 import { AddFocusComponent } from './focus/addFocus/addFocus.component';
@@ -34,9 +42,9 @@ import { RoleComponent } from './role/role.component';
 import { UserComponent } from './user/user.component';
 import { AlertComponent } from './alert/alert.component';
 import {GrowlModule,ListboxModule,CalendarModule,PanelModule,DataTableModule,
-  InputTextareaModule,InputTextModule,DialogModule,InputSwitchModule,ScheduleModule,ConfirmDialogModule,ConfirmationService} from 'primeng/primeng';
+  InputTextareaModule,InputTextModule,DialogModule,InputSwitchModule,
+  ScheduleModule,ConfirmDialogModule,ConfirmationService,AutoCompleteModule,SelectButtonModule,SliderModule} from 'primeng/primeng';
 import { CategoryComponent } from './category/category.component';
-import { ActivityComponent } from './activity/activity.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListActivitiesComponent } from './activity/listActivities/listActivities.component';
 import { ViewActivityComponent } from './activity/viewActivity/viewActivity.component';
@@ -63,7 +71,11 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     AddVisComponent,
     ListVisComponent,
     AddFocusComponent,
-    ListFoucsComponent
+    ListFoucsComponent,
+    AddPhaseComponent,
+    ListPhaseComponent,
+    AddStatusComponent,
+    ListStatusComponent
 ],
   imports: [
     BrowserModule,
@@ -80,6 +92,10 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     InputSwitchModule,
     ScheduleModule,
     ConfirmDialogModule,
+    AutoCompleteModule,
+    SelectButtonModule,
+    SliderModule,
+
     RouterModule.forRoot(ROUTES)
   ],
   providers: [
@@ -93,7 +109,10 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     ConfirmationService,
     DeptService,
     VisibilityService,
-    FocusService
+    FocusService,
+    PhaseService,
+    UtilityService,
+    StatusService
   ],
   bootstrap: [AppComponent]
 })

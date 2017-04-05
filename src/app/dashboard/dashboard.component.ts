@@ -31,6 +31,8 @@ export class DashboardComponent implements OnInit{
   isWriter:Boolean;
   updating:Boolean;
 
+  status:String='Open';
+
   constructor(private authService:AuthService,
               private userService:Userservice,
               private categoryService:CategoryService,
@@ -88,7 +90,7 @@ handleDayClick(event) {
         this.activity = new Activity();
         this.activity.startDate = moment(event.date).toDate();
          this.activity.endDate = moment(event.date).toDate();
-        this.activity.opened=true;
+        this.activity.status=this.status;
 
 
         //trigger detection manually as somehow only moving the mouse quickly after click triggers the automatic detection
@@ -184,12 +186,12 @@ handleDayClick(event) {
         col["allDay"] = true;
         if(element.createdBy===uid)
         {
-            col['color']=element.opened?'#6FF5B2':'#D9534F';
+            col['color']=element.status==this.status?'#6FF5B2':'#D9534F';
             col['className']='creator';
         }
         else
         {
-           col['color']=element.opened?'#8A9AFB':'#D9534F';
+           col['color']=element.status==this.status?'#8A9AFB':'#D9534F';
            col['className']='assignee';
         }
         col['textColor']='black';

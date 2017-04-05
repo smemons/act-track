@@ -4,7 +4,7 @@
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
             <label for="title">Title</label>
             <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" required />
-            <div *ngIf="f.submitted && !title.valid" class="help-block">Category Title is required</div>
+            <div *ngIf="f.submitted && !title.valid" class="help-block">Activity Title is required</div>
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !desc.valid }">
@@ -15,13 +15,13 @@
         <div class="row">
             <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted && !startDate.valid }">
                 <label for="startDate">Start Date</label>
-                <p-calendar name="startDate" [(ngModel)]="model.startDate" [showTime]="true" #startDate="ngModel" required> </p-calendar> {{model.startDate}}
+                <p-calendar inputId="startDate" name="startDate" [(ngModel)]="model.startDate" [showTime]="true" #startDate="ngModel" required> </p-calendar>
 
             </div>
             <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted && !endDate.valid }">
 
                 <label for="endDate">End Date</label>
-                <p-calendar name="startDate" [(ngModel)]="model.endDate" [showTime]="true" #endDate="ngModel" required> </p-calendar> {{model.endDate}}
+                <p-calendar inputId="endDate" name="startDate" [(ngModel)]="model.endDate" [showTime]="true" #endDate="ngModel" required> </p-calendar>
                 <div *ngIf="f.submitted && !startDate.valid && !endDate.valid" class="help-block">Start and End Date is required</div>
             </div>
         </div>
@@ -33,15 +33,35 @@
             <div *ngIf="f.submitted && !category.valid" class="help-block"> Category is required</div>
         </div>
 
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted  }">
+            <label for="sponser">Sponser</label>
+            <p-autoComplete inputId="sponser" name="sponser" [(ngModel)]="model.sponser" [suggestions]="foundUsers" (completeMethod)="searchTypeAheadUsers($event)" placeholder="Type User Name" [multiple]="true"></p-autoComplete>
+        </div>
+
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted  }">
             <label for="assignee">Assignee</label>
 
-            <p-listbox name="assignee" [options]="assignees" [(ngModel)]="model.assignee" multiple="multiple" checkbox="checkbox" filter="filter" #assignee="ngModel" required>
-            </p-listbox>
-            <div *ngIf="f.submitted && !assignee.valid" class="help-block"> Assignee is required</div>
+            <!--<p-listbox name="assignee" [options]="assignees" [(ngModel)]="model.assignee" multiple="multiple" checkbox="checkbox" filter="filter" #assignee="ngModel" required>
+            </p-listbox>-->
+
+            <p-autoComplete inputId="assignee" name="assignee" [(ngModel)]="model.assignee" [suggestions]="foundUsers" (completeMethod)="searchTypeAheadUsers($event)" placeholder="Type User Name" [multiple]="true" #assignee="ngModel" required></p-autoComplete>
+            <div *ngIf="f.submitted && !assignee.valid" class="help-block"> Assignee required</div>
         </div>
 
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !status.valid }">
+            <label for="status">Status</label>
+            <p-selectButton [style]="{'border-radius':'25px'}" name="status" inputId="status" [options]="statuses" [(ngModel)]="model.status" #status="ngModel" required></p-selectButton>
+
+            <div *ngIf="f.submitted && !status.valid" class="help-block">Status is required</div>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Completion (%)</label>
+            <input type="text" pInputText [(ngModel)]="model.percentage" style="width:190px" />
+            <p-slider [(ngModel)]="model.percentage" [style]="{'width':'200px'}"></p-slider>
+
+        </div>
 
         <div class="form-group">
             <button [disabled]="loading" class="btn btn-primary">Create</button>
