@@ -32,7 +32,7 @@ export class ActivityComponent implements OnInit {
               private alertService:AlertService,
               private activityService:ActivityService,
               private router:Router,
-              private cd: ChangeDetectorRef ) { }
+             ) { }
 
   ngOnInit() {
     // //get all the dept List
@@ -41,7 +41,7 @@ export class ActivityComponent implements OnInit {
 
       //get all the users and create
        depts.forEach(dept=> {
-          this.cd.detectChanges();
+
             this.depts.push({label:dept.title, value:dept._id});
        });
     });
@@ -53,7 +53,7 @@ export class ActivityComponent implements OnInit {
   //get all Status
 this.statuses=[];
     this.utilityService.getAllStatus().subscribe(sts=>{
-    this.cd.detectChanges();
+
     sts.forEach(status => {
       this.statuses.push({label:status.title, value:status._id});
     });
@@ -62,9 +62,7 @@ this.statuses=[];
    //get all focus areas
 this.focuses=[];
     this.utilityService.getAllFocuses().subscribe(foc=>{
-       this.cd.detectChanges();
     foc.forEach(focus => {
-
       this.focuses.push({label:focus.title, value:focus._id});
     });
   })
@@ -73,7 +71,7 @@ this.focuses=[];
    //get all visiblities areas
 this.visibilities=[];
     this.utilityService.getAllVisibilities().subscribe(vis=>{
-       this.cd.detectChanges();
+
     vis.forEach(visb => {
 
       this.visibilities.push({label:visb.title, value:visb._id});
@@ -83,7 +81,7 @@ this.visibilities=[];
    //get all phases areas
 this.phases=[];
     this.utilityService.getAllPhases().subscribe(phase=>{
-       this.cd.detectChanges();
+
     phase.forEach(ph => {
 
       this.phases.push({label:ph.title, value:ph._id});
@@ -91,7 +89,7 @@ this.phases=[];
     })
   }
   createActivity(){
-
+debugger;
         this.loading = true;
 
          this.activityService.create(this.model)

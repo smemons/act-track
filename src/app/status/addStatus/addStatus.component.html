@@ -16,7 +16,11 @@
             <textarea class="form-control" name="desc" [(ngModel)]="model.desc" #desc="ngModel"></textarea>
 
         </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !color.valid }">
+            <label for="color">Color Code</label>
+            <input type="text" class="form-control" name="color" [(ngModel)]="model.colorCode" />
 
+        </div>
 
 
         <div class="form-group">

@@ -14,8 +14,8 @@
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !category.valid }">
             <label for="category">Category</label>
-            <select class="form-control" id="category" name="category" [(ngModel)]="model.category" #category="ngModel" required>
-              <option *ngFor="let cat of categories" [ngValue]="cat.title">{{cat.title}}</option>
+            <select class="form-control" id="category" name="category" [(ngModel)]="model.catId" #category="ngModel" required>
+              <option *ngFor="let cat of categories" [ngValue]="cat._id">{{cat.title}}</option>
             </select>
             <div *ngIf="f.submitted && !category.valid" class="help-block"> Category is required</div>
         </div>
@@ -55,7 +55,7 @@
                 <div *ngIf="f.submitted && !phase.valid" class="help-block"> Phase is required</div>
             </div>
             <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted  }">
-                <label for="visibility"> Visibilities</label>
+                <label for="visibility"> Escalation</label>
                 <p-multiSelect name="visibility" [options]="visibilities" [(ngModel)]="model.visId" [style]="{'width':'100%'}" #visibility="ngModel"></p-multiSelect>
                 <!--<div *ngIf="f.submitted && !dept.valid" class="help-block"> Department required</div>-->
             </div>
@@ -79,7 +79,7 @@
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !status.valid }">
             <label for="status">Status</label>
-            <p-selectButton name="status" inputId="status" [options]="statuses" [(ngModel)]="model.status" #status="ngModel" required></p-selectButton>
+            <p-selectButton name="status" inputId="status" [options]="statuses" [(ngModel)]="model.statusId" #status="ngModel" required></p-selectButton>
 
             <div *ngIf="f.submitted && !status.valid" class="help-block">Status is required</div>
         </div>

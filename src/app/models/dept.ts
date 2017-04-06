@@ -1,4 +1,5 @@
 export class Dept{
+    _id:String;
     title: String;
     code: String;
     desc: String;

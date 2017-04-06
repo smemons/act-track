@@ -1,3 +1,4 @@
+import { forEach } from '@angular/router/src/utils/collection';
 import { Observable } from 'rxjs/Observable';
 import { User } from './../models/user';
 import { Http, Response } from '@angular/http';
@@ -64,6 +65,20 @@ getAllDepts() {
       .http
       .get('/api/user/search/'+q)
       .map((response: Response) => response.json());
+  }
+/**
+ * get selected item from given array by given id
+ */
+  getSelectedById(id:String,list:Array<any>):String
+  {
+    let ret="";
+    list.forEach(elm => {
+      if(id===elm._id)
+      {
+        ret=elm.title;
+      }
+    });
+    return ret;
   }
 
 

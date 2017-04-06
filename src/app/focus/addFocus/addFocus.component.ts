@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { AlertService } from './../../services/alert.service';
 import { FocusService } from './../../services/focus.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-addFocus',
@@ -12,7 +12,7 @@ export class AddFocusComponent implements OnInit {
 
    model : any = {};
   loading = false;
-  constructor(private focusService : FocusService, private alertService : AlertService, private router : Router) {}
+  constructor(private cd:ChangeDetectorRef,private focusService : FocusService, private alertService : AlertService, private router : Router) {}
 
   ngOnInit() {}
   createFocus() {
@@ -27,7 +27,7 @@ export class AddFocusComponent implements OnInit {
         this
           .alertService
           .success('Focus created!');
-
+          this.cd.markForCheck();
           this.router.navigate(['/home']);
       }, error => {
 

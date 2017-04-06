@@ -8,12 +8,11 @@
 
 
             <ul class="legend">
-                <li><span class="createdbyme"></span> Created By Me</li>
-                <li><span class="assignedtome"></span> Assigned To Me</li>
-                <li><span class="closedact"></span> Closed</li>
+                <li *ngFor="let status of statuses"><span [ngStyle]="{'background-color': status.colorCode}"></span>{{status.title}}</li>
+
             </ul>
             <div class="clearfix"></div>
-            <p-schedule [events]="events" [height]="600" [header]="headerConfig" [editable]="true" (onDayClick)="handleDayClick($event)" (onEventClick)="handleEventClick($event)"></p-schedule>
+            <p-schedule [events]="events" [height]="600" [header]="headerConfig" [editable]="true" (onEventClick)="handleEventClick($event)"></p-schedule>
 
 
         </p-panel>
@@ -32,36 +31,41 @@
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="category">Category</label></div>
             <div class="ui-grid-col-8">
-                <select class="form-control" id="category" name="category" [(ngModel)]="activity.category" #category="ngModel" required>
-              <option *ngFor="let cat of categories" [ngValue]="cat.title">{{cat.title}}</option>
-            </select> </div>
+                {{selectedCategory}}
+
+            </div>
         </div>
 
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="startDate">Start Date</label></div>
             <div class="ui-grid-col-8">
-                <p-calendar [appendTo]="aDialog" name="startDate" [icon]="true" [(ngModel)]="activity.startDate" dateFormat="mm/dd/yy" dataType="string"></p-calendar>
+                <!--<p-calendar disabled="true" [appendTo]="aDialog" name="startDate" [icon]="true" [(ngModel)]="activity.startDate" dateFormat="mm/dd/yy" dataType="string"></p-calendar>-->
+                {{activity.startDate|date}}
             </div>
         </div>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="endDate">End Date</label></div>
             <div class="ui-grid-col-8">
-                <p-calendar [appendTo]="aDialog" name="endDate" [icon]="true" [(ngModel)]="activity.endDate" dateFormat="mm/dd/yy" dataType="string"></p-calendar>
+                {{activity.endDate|date}}
+                <!--<p-calendar disabled="true" [appendTo]="aDialog" name="endDate" [icon]="true" [(ngModel)]="activity.endDate" dateFormat="mm/dd/yy" dataType="string"></p-calendar>-->
             </div>
         </div>
         <br>
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="status">Status</label></div>
             <div class="ui-grid-col-8">
-                <p-inputSwitch name="status" onLabel="Open" offLabel="Close" [(ngModel)]="activity.status">></p-inputSwitch>
+
+                <p-dropdown name="status" [appendTo]="aDialog" inputId="status" [options]="listStatuses" [(ngModel)]="activity.statusId" required></p-dropdown>
+                <!--<p-selectButton name="status" inputId="status" [options]="listStatuses" [(ngModel)]="activity.statusId" #status="ngModel" required></p-selectButton>-->
             </div>
         </div>
 
         <div class="ui-grid-row">
             <div class="ui-grid-col-4"><label for="assignee">Assignee</label></div>
             <div class="ui-grid-col-8">
-                <p-listbox name="assignee" [options]="assignees" [(ngModel)]="activity.assignee" multiple="multiple" checkbox="checkbox" filter="filter" #assignee="ngModel" required>
-                </p-listbox>
+                <!--<p-listbox name="assignee" [options]="assignees" [(ngModel)]="activity.assignee" multiple="multiple" checkbox="checkbox" filter="filter" #assignee="ngModel" required>
+                </p-listbox>-->
+                {{activity.assignee}}
 
             </div>
         </div>
@@ -69,10 +73,10 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-widget-content ui-helper-clearfix">
-            <button *ngIf="isWriter && !updating" type="button" pButton icon="fa-check" (click)="saveActivity(activity)" label="Save"></button>
-            <button *ngIf="isWriter && updating" type="button" pButton icon="fa-check" (click)="updateActivity(activity)" label="Save"></button>
+
+            <button [disabled]="!isWriter" type="button" pButton icon="fa-check" (click)="updateActivity(activity)" label="Save"></button>
             <button type="button" pButton icon="fa-close" (click)="close()" label="Cancel"></button>
-            <button type="button" class="pull-left" pButton icon="fa-eye" (click)="showDetail(activity._id)" label="Detail"></button>
+            <button type="button" class="pull-left btn-primary btn-lg" (click)="showDetail(activity._id)" label="Detail">Detail</button>
         </div>
     </p-footer>
 </p-dialog>

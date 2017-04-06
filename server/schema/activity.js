@@ -9,7 +9,7 @@ const ActSchema = new Schema({
     desc: String,
     startDate: { type: Date, default: Date.now },
     endDate: { type: Date, default: Date.now },
-    status: String,
+
     sponsor: [String],
     assignee: [String],
     percentage: Number, // percentage of completion
@@ -18,6 +18,7 @@ const ActSchema = new Schema({
     focusId: String, //focus Id
     phaseId: String, //phase Id
     visId: [String], //Visisblity ID
+    statusId: String, //statusID
     createdAt: { type: Date, default: Date.now },
     createdBy: String,
     updatedAt: { type: Date, default: Date.now },
