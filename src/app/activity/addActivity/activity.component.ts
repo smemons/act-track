@@ -9,7 +9,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import {SelectItem} from 'primeng/primeng';
-
+declare var moment: any;
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
@@ -43,60 +43,44 @@ export class ActivityComponent implements OnInit {
    if(parentUrl==='/addChildActivity')
    {
      this.model=this.utilityService.getPassedActivity();
+      this.model.startDate = moment(this.model.startDate).toDate();
+      this.model.endDate = moment(this.model.endDate).toDate();
    }
 
     // //get all the dept List
     this.depts = [];
     this.utilityService.getAllDepts().subscribe(depts=>{
 
-      //get all the users and create
-       depts.forEach(dept=> {
+      this.depts=this.utilityService.getSelectItemPublished(depts,null);
 
-            this.depts.push({label:dept.title, value:dept._id});
-       });
     });
-
-
 
     this.utilityService.getAllCategories().subscribe(cat=>this.categories=cat);
 
   //get all Status
 this.statuses=[];
     this.utilityService.getAllStatus().subscribe(sts=>{
-    this.utilityService.
-    sts.forEach(status => {
-      this.statuses.push({label:status.title, value:status._id});
-    });
-  })
+      this.statuses=this.utilityService.getSelectItemPublished(sts,null);
+  });
 
    //get all focus areas
 this.focuses=[];
     this.utilityService.getAllFocuses().subscribe(foc=>{
-    foc.forEach(focus => {
-      this.focuses.push({label:focus.title, value:focus._id});
-    });
-  })
+       this.focuses=this.utilityService.getSelectItemPublished(foc,"Focus Area");
+  });
 
   /////////////////////
    //get all visiblities areas
 this.visibilities=[];
     this.utilityService.getAllVisibilities().subscribe(vis=>{
-
-    vis.forEach(visb => {
-
-      this.visibilities.push({label:visb.title, value:visb._id});
-    });
-  })
+     this.visibilities=this.utilityService.getSelectItemPublished(vis,null);
+  });
   /////////////////////
    //get all phases areas
 this.phases=[];
     this.utilityService.getAllPhases().subscribe(phase=>{
-
-    phase.forEach(ph => {
-
-      this.phases.push({label:ph.title, value:ph._id});
+       this.phases=this.utilityService.getSelectItemPublished(phase,"Phase");
     });
-    })
   }
   createActivity(){
 debugger;

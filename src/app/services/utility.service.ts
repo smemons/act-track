@@ -89,9 +89,11 @@ getAllDepts() {
  * getSelectItemPublished
  * get seletItem publised with given data in format of primeng
  */
-  getSelectItemPublished(itmArry:any[]):SelectItem[]
+  getSelectItemPublished(itmArry:any[],title:string):SelectItem[]
   {
    let si:SelectItem[]=[];
+   if(title!=null)
+        si.push({label:"Select "+title, value:null});
    itmArry.forEach(element => {
       si.push({label:element.title, value:element._id});
    });

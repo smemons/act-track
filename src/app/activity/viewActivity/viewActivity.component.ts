@@ -55,27 +55,29 @@ export class ViewActivityComponent implements OnInit {
       let id=this.route.snapshot.params['id'];
       this.activityService.getActivity(id).subscribe(act=>{
         this.activity=act;
+        console.log(act);
         //get category detail
         this.utilityService.getAllCategories().subscribe(cats=>{
-          this.categories=this.utilityService.getSelectItemPublished(cats);
+          this.categories=this.utilityService.getSelectItemPublished(cats,"Category");
           this.category=this.utilityService.getTitleById(act.catId,cats);
          });
        //get status
        this.utilityService.getAllStatus().subscribe(sts=>{
-         this.statuses=this.utilityService.getSelectItemPublished(sts);
+         this.statuses=this.utilityService.getSelectItemPublished(sts,null);
           this.status=this.utilityService.getTitleById(act.statusId,sts);
        });
 
        //get focus
        this.utilityService.getAllFocuses().subscribe(focus=>{
-         this.focuses=this.utilityService.getSelectItemPublished(focus);
+         debugger;
+         this.focuses=this.utilityService.getSelectItemPublished(focus,"Focus Area");
           this.focus=this.utilityService.getTitleById(act.focusId,focus);
        });
 
       //get all depts
       this.dept=[];
        this.utilityService.getAllDepts().subscribe(dept=>{
-         this.depts=this.utilityService.getSelectItemPublished(dept);
+         this.depts=this.utilityService.getSelectItemPublished(dept,null);
          //there may more then one dept
          if(act.deptId!=null)
          {
@@ -90,7 +92,7 @@ export class ViewActivityComponent implements OnInit {
     //get all visibilities
       this.visibility=[];
        this.utilityService.getAllVisibilities().subscribe(vis=>{
-         this.visibilitis=this.utilityService.getSelectItemPublished(vis);
+         this.visibilitis=this.utilityService.getSelectItemPublished(vis,null);
 
          //there may more then one dept
          if(act.visId!=null)
@@ -104,7 +106,8 @@ export class ViewActivityComponent implements OnInit {
 
      //get phase
        this.utilityService.getAllPhases().subscribe(phase=>{
-         this.phases=this.utilityService.getSelectItemPublished(phase);
+         debugger;
+         this.phases=this.utilityService.getSelectItemPublished(phase,"Phase");
           this.phase=this.utilityService.getTitleById(act.phaseId,phase);
        });
 
