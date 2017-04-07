@@ -231,6 +231,6 @@ handleEventClick(event){
   }
   showDetail(id:string)
   {
-    this.activityService.viewActivity(id);
+    this.utilityService.viewActivity(id);
   }
 }

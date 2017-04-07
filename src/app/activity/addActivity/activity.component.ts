@@ -27,6 +27,7 @@ export class ActivityComponent implements OnInit {
     visibilities: SelectItem[];
     phases: SelectItem[];
 
+
   constructor(private userService:Userservice,
               private utilityService:UtilityService,
               private alertService:AlertService,
@@ -35,6 +36,15 @@ export class ActivityComponent implements OnInit {
              ) { }
 
   ngOnInit() {
+
+   //check if request is coming for a child activity to be created
+   debugger;
+   let parentUrl=this.router.url;
+   if(parentUrl==='/addChildActivity')
+   {
+     this.model=this.utilityService.getPassedActivity();
+   }
+
     // //get all the dept List
     this.depts = [];
     this.utilityService.getAllDepts().subscribe(depts=>{
@@ -53,7 +63,7 @@ export class ActivityComponent implements OnInit {
   //get all Status
 this.statuses=[];
     this.utilityService.getAllStatus().subscribe(sts=>{
-
+    this.utilityService.
     sts.forEach(status => {
       this.statuses.push({label:status.title, value:status._id});
     });

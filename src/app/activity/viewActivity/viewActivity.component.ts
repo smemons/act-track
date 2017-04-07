@@ -76,7 +76,6 @@ export class ViewActivityComponent implements OnInit {
       this.dept=[];
        this.utilityService.getAllDepts().subscribe(dept=>{
          this.depts=this.utilityService.getSelectItemPublished(dept);
-         debugger;
          //there may more then one dept
          if(act.deptId!=null)
          {
@@ -118,7 +117,7 @@ export class ViewActivityComponent implements OnInit {
 
   goback()
   {
-    this.activityService.back();
+    this.utilityService.back();
   }
 
   showTaskDialog()
@@ -153,6 +152,13 @@ export class ViewActivityComponent implements OnInit {
 
       this.displayDialog = false;
       this.loading=false;
+  }
+  //create subactivity
+  createSubActivity(act:Activity)
+  {
+    this.utilityService.setPassedActivity(act);
+    this.utilityService.addChildActivity();
+
   }
 
 }

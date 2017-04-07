@@ -83,6 +83,11 @@ export const ROUTES = [
         component:DashboardComponent,
          canActivate: [AuthGuard]
     },
+     {
+        path: 'addChildActivity',
+        component:ActivityComponent,
+         canActivate: [AuthGuard]
+    },
    {
         path: 'createActivity',
         component:ActivityComponent,

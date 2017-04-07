@@ -1,14 +1,18 @@
+import { Location } from '@angular/common';
+import { Activity } from './../models/activity';
 import { SelectItem } from 'primeng/primeng';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Observable } from 'rxjs/Observable';
 import { User } from './../models/user';
 import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class UtilityService {
 
-constructor(private http:Http) { }
+passedActivity:Activity;
+constructor(private http:Http,private location:Location,private router:Router) { }
 
 //get all Category
  getAllCategories() {
@@ -94,4 +98,34 @@ getAllDepts() {
    return si;
   }
 
+  //set passed activity for transport to other component
+  setPassedActivity(act:Activity)
+  {
+    this.passedActivity=act;
+  }
+  //get passed activity
+  getPassedActivity():Activity
+  {
+    if(this.passedActivity==null)
+        this.passedActivity=new Activity();
+    return this.passedActivity;
+  }
+
+   //view selected Activity and store the previous location
+  viewActivity(id)
+  {
+    this.router.navigate(['/viewActivity', id],{ skipLocationChange: true });
+  }
+
+  //add child activity
+  addChildActivity()
+  {
+    this.router.navigate(['/addChildActivity']);
+  }
+
+  //go back
+  back()
+  {
+    this.location.back(); // <-- go back to previous location on cancel
+  }
 }

@@ -2,6 +2,8 @@
 <button type="button" class="btn btn-default btn-lg" (click)="goback()">
   <span class="glyphicon glyphicon-backward" aria-hidden="true"></span> Back
 </button>
+<button class="btn btn-info btn-lg pull-right" (click)="createSubActivity(activity)" role="button">Create Subactivity</button>
+
 <br />
 <br />
 <div class="row">
@@ -115,8 +117,18 @@
         <p-header>List of Tasks</p-header>
         <p-column field="title" header="Title" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="desc" header="Description" [filter]="true" filterPlaceholder="Search"></p-column>
+        <p-column field="startDate" header="Start Date">
+            <template let-col let-task="rowData" pTemplate="body">
+                {{task[col.field]|date }}
+            </template>
+        </p-column>
+        <p-column field="endDate" header="End Date">
+            <template let-col let-task="rowData" pTemplate="body">
+                {{task[col.field]|date }}
+            </template>
+        </p-column>
         <p-column field="createdBy" header="Created By" [filter]="true" filterPlaceholder="Search"></p-column>
-        <p-column field="createdAt" header="Created At" [filter]="true" filterPlaceholder="Search">
+        <p-column field="createdAt" header="Created At">
             <template let-col let-task="rowData" pTemplate="body">
                 {{task[col.field]|date }}
             </template>

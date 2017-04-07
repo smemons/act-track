@@ -8,7 +8,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ActivityService {
 
-constructor(private authService:AuthService,private http:Http,private location:Location,private router:Router) { }
+constructor(private authService:AuthService,private http:Http) { }
 
 
 create(activity:Activity)
@@ -75,14 +75,4 @@ update(activity:Activity)
       .map((response: Response) => response.json());
   }
 
-  //view selected Activity and store the previous location
-  viewActivity(id)
-  {
-    this.router.navigate(['/viewActivity', id]);
-  }
-  //go back
-  back()
-  {
-    this.location.back(); // <-- go back to previous location on cancel
-  }
 }
