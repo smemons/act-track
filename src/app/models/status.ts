@@ -1,10 +1,10 @@
 export class Status{
-    _id :String;
-    title: String;
-    code: String;
-    desc: String;
-    colorCode: String;
-    createdBy: String;
+    _id :string;
+    title: string;
+    code: string;
+    desc: string;
+    colorCode: string;
+    createdBy: string;
     createdAt:Date;
 
 }

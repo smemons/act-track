@@ -1,8 +1,8 @@
 export class Category{
-   _id:String;
-    title: String;
-    desc: String;
-    createdBy: String;
+   _id:string;
+    title: string;
+    desc: string;
+    createdBy: string;
     createdAt: Date;
 
 

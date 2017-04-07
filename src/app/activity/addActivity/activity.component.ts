@@ -21,7 +21,7 @@ export class ActivityComponent implements OnInit {
     users: User[];
     depts: SelectItem[];
     categories: Category[];
-    foundUsers: String[];
+    foundUsers: string[];
     statuses: SelectItem[];
     focuses: SelectItem[];
     visibilities: SelectItem[];

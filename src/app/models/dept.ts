@@ -1,9 +1,9 @@
 export class Dept{
-    _id:String;
-    title: String;
-    code: String;
-    desc: String;
-    createdBy: String;
+    _id:string;
+    title: string;
+    code: string;
+    desc: string;
+    createdBy: string;
     createdAt:Date;
 
 }

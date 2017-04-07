@@ -1,9 +1,9 @@
 export class Visibility{
-    title: String;
-    code: String;
-    createdBy: String;
+    title: string;
+    code: string;
+    createdBy: string;
     createdAt:Date;
-    updatedBy: String;
+    updatedBy: string;
     updatedAt:Date;
 
 }

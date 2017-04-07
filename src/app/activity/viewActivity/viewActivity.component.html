@@ -13,41 +13,86 @@
                 </div>
             </p-header>
             <div class="jumbotron">
-                <h4>{{activity.title}}</h4>
-                <div class="left">Description </div>
-                <div class="right">
+                <button *ngIf="status!='Closed'" class="btn btn-primary btn-lg pull-left" (click)="showTaskDialog()" role="button">Create Task</button>
+                <div class="clear"></div>
+                <h2>{{activity.title}}</h2>
+                <div class="left act-hd">Description </div>
+                <div class="right act-ct">
                     {{activity.desc}}
                 </div>
                 <div class="clear"></div>
 
-                <div class="left">Category </div>
-                <div class="right">
-                    {{activity.category}}
+                <div class="left act-hd act-ct">Category </div>
+                <div class="right ">
+                    {{category}}
                 </div>
                 <div class="clear"></div>
 
-                <div class="left">Status </div>
-                <div class="right">
-                    <span class="opend" *ngIf="activity.opened">Open</span>
-                    <span class="closed" *ngIf="!activity.opened">Closed</span>
+                <div class="left act-hd act-ct">Department(s) </div>
+                <div class="right ">
+                    {{dept}}
                 </div>
                 <div class="clear"></div>
 
-                <div class="left">Created By </div>
+                <div class="left act-hd act-ct">Status </div>
                 <div class="right">
-                    {{activity.createdBy}} On {{activity.createdAt|date: 'medium'}}
+                    {{status}}
                 </div>
                 <div class="clear"></div>
-                <div class="left">Start Date</div>
+
+                <div class="left act-hd act-ct">Created By </div>
                 <div class="right">
-                    {{activity.startDate|date: 'medium'}}
+                    {{activity.createdBy}} On {{activity.createdAt|date}}
                 </div>
                 <div class="clear"></div>
-                <div class="left">End Date</div>
+                <div class="left act-hd act-ct">Start Date</div>
                 <div class="right">
-                    {{activity.endDate|date: 'medium'}}
+                    {{activity.startDate|date }}
                 </div>
-                <button *ngIf="activity.opened" class="btn btn-primary btn-sm" (click)="showTaskDialog()" role="button">Create Task</button>
+                <div class="clear"></div>
+                <div class="left act-hd act-ct">End Date</div>
+                <div class="right">
+                    {{activity.endDate|date}}
+                </div>
+                <div class="clear"></div>
+
+                <div class="left act-hd act-ct">Milestone</div>
+                <div class="right">
+                    {{phase}}
+                </div>
+                <div class="clear"></div>
+
+                <div class="left act-hd act-ct">Sponsers </div>
+                <div class="right">
+                    {{activity.sponsor}}
+                </div>
+                <div class="clear"></div>
+
+                <div class="left act-hd act-ct">Assignee </div>
+                <div class="right">
+                    {{activity.assignee}}
+                </div>
+                <div class="clear"></div>
+
+
+                <div class="left act-hd act-ct">Completion (%) </div>
+                <div class="right">
+                    {{activity.percentage}}
+                </div>
+                <div class="clear"></div>
+
+                <div class="left act-hd act-ct">Focus Area </div>
+                <div class="right">
+                    {{focus}}
+                </div>
+                <div class="clear"></div>
+
+                <div class="left act-hd act-ct">Escalation </div>
+                <div class="right">
+                    {{visibility}}
+                </div>
+                <div class="clear"></div>
+
 
             </div>
         </p-panel>
@@ -83,7 +128,7 @@
 </p-panel>
 <br/>
 <p-dialog #aDialog header="Create Task" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
-    <form name="form" (ngSubmit)="f.form.valid && createPost()" #f="ngForm" novalidate>
+    <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
             <label for="title">Task Title</label>
             <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" required />
@@ -91,15 +136,31 @@
         </div>
 
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !desc.valid }">
-            <label for="title">Task Description</label>
+            <label for="desc">Task Description</label>
             <textarea class="form-control" name="desc" [(ngModel)]="model.desc" #desc="ngModel" required></textarea>
             <div *ngIf="f.submitted && !desc.valid" class="help-block"> Description is required</div>
         </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !startDate.valid }">
+            <label for="startDate">Start Date</label>
+            <p-calendar [appendTo]="aDialog" name="startDate" [icon]="true" [(ngModel)]="model.startDate" dateFormat="mm/dd/yy" dataType="string" required></p-calendar>
 
+            <div *ngIf="f.submitted && !startDate.valid" class="help-block">Start Date is required</div>
+        </div>
 
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !endDate.valid }">
+            <label for="startDate">Start Date</label>
+            <p-calendar [appendTo]="aDialog" name="endDate" [icon]="true" [(ngModel)]="model.endDate" dateFormat="mm/dd/yy" dataType="string" required></p-calendar>
+
+            <div *ngIf="f.submitted && !endDate.valid" class="help-block">End Date is required</div>
+        </div>
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
+            <label for="title">Completion Percentage(%)</label>
+            <input type="text" class="form-control" name="title" [(ngModel)]="model.percentage" #percentage="ngModel" />
+
+        </div>
 
         <div class="form-group">
-            <button [disabled]="loading" (click)="saveTask(activity._id)" class="btn btn-primary">Save</button>
+            <button [disabled]="loading" (click)="saveTask(activity._id)" [disabled]="!f.form.valid" class="btn btn-primary">Save</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
             />
             <button (click)="close()" class="btn btn-link">Cancel</button>

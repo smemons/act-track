@@ -1,3 +1,4 @@
+import { SelectItem } from 'primeng/primeng';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Observable } from 'rxjs/Observable';
 import { User } from './../models/user';
@@ -58,7 +59,7 @@ getAllDepts() {
       .map((response : Response) => response.json());
   }
 //return the typeahead portion of users for string completion
-  getUsersTypeAhead(q:String)
+  getUsersTypeAhead(q:string)
   {
 
     return this
@@ -69,7 +70,7 @@ getAllDepts() {
 /**
  * get selected item from given array by given id
  */
-  getSelectedById(id:String,list:Array<any>):String
+  getTitleById(id:string,list:Array<any>):string
   {
     let ret="";
     list.forEach(elm => {
@@ -80,6 +81,17 @@ getAllDepts() {
     });
     return ret;
   }
-
+/**
+ * getSelectItemPublished
+ * get seletItem publised with given data in format of primeng
+ */
+  getSelectItemPublished(itmArry:any[]):SelectItem[]
+  {
+   let si:SelectItem[]=[];
+   itmArry.forEach(element => {
+      si.push({label:element.title, value:element._id});
+   });
+   return si;
+  }
 
 }

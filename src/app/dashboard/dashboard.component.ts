@@ -34,8 +34,8 @@ export class DashboardComponent implements OnInit{
 
   isWriter:Boolean;
 
-  selectedCategory:String;
-  status:String='Open';
+  selectedCategory:string;
+  status:string='Open';
 
   constructor(private authService:AuthService,
               private userService:Userservice,
@@ -98,7 +98,7 @@ handleEventClick(event){
                 this.activity=act;
                 this.activity.startDate = moment(act.startDate).toDate();
                 this.activity.endDate = moment(act.endDate).toDate();
-                this.selectedCategory=this.utilityService.getSelectedById(act.catId,this.categories);
+                this.selectedCategory=this.utilityService.getTitleById(act.catId,this.categories);
               });
 }
 
@@ -218,9 +218,9 @@ handleEventClick(event){
         return col;
   }
   //
-  private getColorFromStatus(statusId:String):String
+  private getColorFromStatus(statusId:string):string
   {
-    let cc:String="";
+    let cc:string="";
     this.statuses.forEach(element => {
       if(element._id===statusId)
       {
@@ -229,7 +229,7 @@ handleEventClick(event){
     });
     return cc;
   }
-  showDetail(id:String)
+  showDetail(id:string)
   {
     this.activityService.viewActivity(id);
   }

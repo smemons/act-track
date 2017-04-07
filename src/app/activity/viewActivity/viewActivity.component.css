@@ -29,10 +29,10 @@
     clear: both;
 }
 
-.opend {
-    background-color: #d4e0a1;
+.act-hd {
+    font-weight: bold;
 }
 
-.closed {
-    background-color: #f76a6a;
+.act-ct {
+    margin-bottom: 10px;
 }

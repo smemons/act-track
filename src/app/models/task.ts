@@ -1,8 +1,12 @@
 export class Task{
-    title: String;
-    desc: String;
-    activityId: String;
-    createdBy: String;
+    _id:string;
+    title: string;
+    desc: string;
+    activityId: string;
+    percentage: number;
+    startDate:  Date;
+    endDate:  Date;
+    createdBy: string;
     createdAt:Date;
 
 }
