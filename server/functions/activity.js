@@ -16,18 +16,16 @@ var getActivity = function(req, res, next) {
 
 // create Activity
 var saveActivity = function(req, res, next) {
-    console.log('creating Activity now');
+
     var activity = new Activity(req.body);
 
-    activity.save(function(err) {
+    activity.save(function(err, act) {
         if (err) {
 
             return next(err);
         } else {
-
-            return res.json({
-                message: 'Activity created!'
-            });
+            console.log('activiity created ' + act);
+            return res.json(act);
         }
     });
 }
@@ -47,6 +45,19 @@ var updateActivity = function(req, res, next) {
 }
 var getAll = function(req, res, next) {
     Activity.find(function(err, docs) {
+        if (err) {
+
+            next(err);
+        } else {
+
+            res.json(docs);
+        }
+    });
+}
+
+var getAllByParentId = function(req, res, next) {
+    var id = req.params.id;
+    Activity.find({ 'parentId': id }, function(err, docs) {
         if (err) {
 
             next(err);
@@ -116,6 +127,21 @@ var getActivityByName = function(req, res, next) {
     });
 }
 
+//getAll By level id
+var getAllByLevel = function(req, res, next) {
+    var level = req.params.level;
+    Activity.find({ 'level': level }, function(err, docs) {
+        if (err) {
+
+            next(err);
+        } else {
+
+
+            res.json(docs);
+        }
+    });
+}
+
 module.exports = {
     getActivity: getActivity,
     saveActivity: saveActivity,
@@ -123,7 +149,11 @@ module.exports = {
     getAllAssigned: getAllAssigned,
     getAllCreated: getAllCreated,
     updateActivity: updateActivity,
-    getAllByUserId: getAllByUserId
+    getAllByUserId: getAllByUserId,
+    getAllByLevel: getAllByLevel,
+    getAllByParentId: getAllByParentId
+
+
 
 
 }

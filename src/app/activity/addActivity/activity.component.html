@@ -1,5 +1,16 @@
 <div class="col-md-6 col-md-offset-3">
-    <h2>New Activity</h2>
+    <h2>New <span *ngIf="isChild">Sub </span>Activity</h2>
+
+    <div *ngIf="isChild" class="panel panel-warning">
+
+        <div class="panel-heading">
+            <h5> Parent Activity: {{parentTitle}}</h5>
+        </div>
+        <div class="panel-body">
+            <button class="btn btn-info btn-lg pull-right" (click)="viewActivity(this.model.parentId)" role="button">See Parent Activity</button>
+        </div>
+
+    </div>
     <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
             <label for="title">Title</label>
@@ -31,7 +42,7 @@
             <div class="form-group col-xs-6" [ngClass]="{ 'has-error': f.submitted  }">
                 <label for="visibility"> Escalation</label>
                 <!--<p-multiSelect name="visibility" [options]="visibilities" [(ngModel)]="model.visId" [style]="{'width':'100%'}" #visibility="ngModel"></p-multiSelect>-->
-             <p-listbox name="visibility" [options]="visibilities" [(ngModel)]="model.visId" multiple="multiple" [style]="{'width':'100%','max-height':'200px'}" checkbox="checkbox" filter="filter" #visibility="ngModel">
+                <p-listbox name="visibility" [options]="visibilities" [(ngModel)]="model.visId" multiple="multiple" [style]="{'width':'100%','max-height':'200px'}" checkbox="checkbox" filter="filter" #visibility="ngModel">
                 </p-listbox>
             </div>
 

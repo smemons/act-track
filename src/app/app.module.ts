@@ -1,3 +1,6 @@
+import { TreeBuilderService } from './services/treeBuilder.service';
+import { TreeComponent } from './activity/tree/tree.component';
+import { ActLookupService } from './services/actLookup.service';
 import { StatusService } from './services/status.service';
 import { ListStatusComponent } from './status/listStatus/listStatus.component';
 import { AddStatusComponent } from './status/addStatus/addStatus.component';
@@ -44,7 +47,8 @@ import { AlertComponent } from './alert/alert.component';
 import {GrowlModule,ListboxModule,CalendarModule,PanelModule,DataTableModule,
   InputTextareaModule,InputTextModule,DialogModule,InputSwitchModule,
   ScheduleModule,ConfirmDialogModule,ConfirmationService,AutoCompleteModule,
-  SelectButtonModule,SliderModule,MultiSelectModule,DropdownModule,FileUploadModule} from 'primeng/primeng';
+  SelectButtonModule,SliderModule,MultiSelectModule,DropdownModule,
+  FileUploadModule,TabViewModule,TreeModule} from 'primeng/primeng';
 import { CategoryComponent } from './category/category.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListActivitiesComponent } from './activity/listActivities/listActivities.component';
@@ -76,7 +80,8 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     AddPhaseComponent,
     ListPhaseComponent,
     AddStatusComponent,
-    ListStatusComponent
+    ListStatusComponent,
+    TreeComponent
 ],
   imports: [
     BrowserModule,
@@ -99,6 +104,8 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     MultiSelectModule,
     DropdownModule,
     FileUploadModule,
+    TabViewModule,
+    TreeModule,
 
     RouterModule.forRoot(ROUTES)
   ],
@@ -116,7 +123,9 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     FocusService,
     PhaseService,
     UtilityService,
-    StatusService
+    StatusService,
+    ActLookupService,
+    TreeBuilderService
   ],
   bootstrap: [AppComponent]
 })

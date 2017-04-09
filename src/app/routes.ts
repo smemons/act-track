@@ -126,8 +126,10 @@ export const ROUTES = [
 
     {
         path: 'home',
-        component: HomeComponent
+        component: DashboardComponent,
+        canActivate: [AuthGuard]
     },
+
     {
         path: 'register',
         component: UserComponent

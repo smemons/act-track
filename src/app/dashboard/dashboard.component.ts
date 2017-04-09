@@ -94,7 +94,7 @@ handleEventClick(event){
   this.isWriter=event.calEvent.className[0]==='creator' ? true : false;
   this.activityService.getActivity(id).subscribe(act=>
               {
-                debugger;
+
                 this.activity=act;
                 this.activity.startDate = moment(act.startDate).toDate();
                 this.activity.endDate = moment(act.endDate).toDate();
@@ -134,7 +134,7 @@ handleEventClick(event){
                    this.cd.detectChanges();
                 },
                 error => {
-                    //this.alertService.error(error);
+
                     console.log(error);
                     this.alertService.error(error);
 

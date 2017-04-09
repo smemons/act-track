@@ -1,3 +1,6 @@
+import { ActivityLookup } from './../../models/actLookup';
+import { ActLookupService } from '../../services/actLookup.service';
+
 import { Status } from './../../models/status';
 import { UtilityService } from './../../services/utility.service';
 import { ActivityService } from './../../services/activity.service';
@@ -16,22 +19,34 @@ declare var moment: any;
   styleUrls: ['./activity.component.css']
 })
 export class ActivityComponent implements OnInit {
-    model: any = {};
-    loading = false;
-    users: User[];
-    depts: SelectItem[];
-    categories: Category[];
-    foundUsers: string[];
-    statuses: SelectItem[];
-    focuses: SelectItem[];
-    visibilities: SelectItem[];
-    phases: SelectItem[];
+      model : any = {};
+      loading = false;
+      users : User[];
+      foundUsers : string[];
+      isChild : boolean;
+      parentTitle : string;
+      category : string;
+      categories : SelectItem[];
+      status : string;
+      statuses : SelectItem[];
 
+      focus : string;
+      focuses : SelectItem[];
+
+      dept : string[];
+      depts : SelectItem[];
+
+      phase : string;
+      phases : SelectItem[];
+
+      visibility : string[];
+      visibilities : SelectItem[];
 
   constructor(private userService:Userservice,
               private utilityService:UtilityService,
               private alertService:AlertService,
               private activityService:ActivityService,
+              private actLookupService:ActLookupService,
               private router:Router,
              ) { }
 
@@ -40,11 +55,19 @@ export class ActivityComponent implements OnInit {
    //check if request is coming for a child activity to be created
    debugger;
    let parentUrl=this.router.url;
+   this.isChild=false;
    if(parentUrl==='/addChildActivity')
    {
-     this.model=this.utilityService.getPassedActivity();
+      this.model=this.utilityService.getPassedActivity();
       this.model.startDate = moment(this.model.startDate).toDate();
       this.model.endDate = moment(this.model.endDate).toDate();
+      this.model.parentId=this.model._id;
+      this.parentTitle =  this.model.title;
+      this.model.title="";
+      this.model.desc="";
+      this.isChild=true;
+      this.model._id=undefined;
+      this.model.level=this.model.level+1;
    }
 
     // //get all the dept List
@@ -83,13 +106,24 @@ this.phases=[];
     });
   }
   createActivity(){
-debugger;
+
         this.loading = true;
 
          this.activityService.create(this.model)
             .subscribe(
+
                 data => {
-                   console.log('Category created - Service!');
+                   let al=new ActivityLookup();
+                   al.actId=data._id;
+                   al.parentId=this.model.parentId;
+                   al.level=this.model.level;
+                   this.actLookupService.create(al).subscribe(dt=>{
+                      console.log(dt);
+                   },
+                   er=>
+                   {
+                     console.log(er);
+                   });
                    this.alertService.success('Activty created!');
                     this.router.navigate(['/home']);
                 },
@@ -114,5 +148,11 @@ debugger;
   },error=>{
     console.log(error);
   });
-  }
+}
+
+//viewActivity
+viewActivity(id:String)
+{
+  this.utilityService.viewActivity(id);
+}
 }

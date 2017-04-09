@@ -34,7 +34,7 @@ export class ViewActivityComponent implements OnInit {
   phases:SelectItem[];
 
   visibility:string[];
-  visibilitis:SelectItem[];
+  visibilities:SelectItem[];
 
   constructor(private route: ActivatedRoute,private router: Router,
               private taskService:TaskService,
@@ -49,13 +49,12 @@ export class ViewActivityComponent implements OnInit {
       this.focuses=[];
       this.statuses=[];
       this.depts=[];
-      this.visibilitis=[];
+      this.visibilities=[];
       this.phases=[];
 
       let id=this.route.snapshot.params['id'];
       this.activityService.getActivity(id).subscribe(act=>{
         this.activity=act;
-        console.log(act);
         //get category detail
         this.utilityService.getAllCategories().subscribe(cats=>{
           this.categories=this.utilityService.getSelectItemPublished(cats,"Category");
@@ -92,7 +91,7 @@ export class ViewActivityComponent implements OnInit {
     //get all visibilities
       this.visibility=[];
        this.utilityService.getAllVisibilities().subscribe(vis=>{
-         this.visibilitis=this.utilityService.getSelectItemPublished(vis,null);
+         this.visibilities=this.utilityService.getSelectItemPublished(vis,null);
 
          //there may more then one dept
          if(act.visId!=null)

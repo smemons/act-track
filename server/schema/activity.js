@@ -18,7 +18,8 @@ const ActSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
     createdBy: String,
     updatedAt: { type: Date, default: Date.now },
-    updatedBy: String
+    updatedBy: String,
+    level: { type: Number, default: 0 }
 
 });
-module.exports = mongoose.model('Acivity', ActSchema);
+module.exports = mongoose.model('Acivity', ActSchema)

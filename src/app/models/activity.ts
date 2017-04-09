@@ -18,4 +18,5 @@ createdBy:string;
 createdAt:Date;
 updatedBy: string;
 updatedAt: Date;
+level:number;
 }

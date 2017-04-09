@@ -15,8 +15,6 @@ create(activity:Activity)
 {
 
   activity.createdBy=this.authService.getCurrentUser();
-   console.log('posting Activity from service: ' + activity);
-    //return this.http.post('/api/user', JSON.stringify(user), this.options);
     return this
       .http
       .post('/api/activity', activity)
