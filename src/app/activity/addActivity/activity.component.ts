@@ -1,5 +1,4 @@
-import { ActivityLookup } from './../../models/actLookup';
-import { ActLookupService } from '../../services/actLookup.service';
+
 
 import { Status } from './../../models/status';
 import { UtilityService } from './../../services/utility.service';
@@ -46,7 +45,6 @@ export class ActivityComponent implements OnInit {
               private utilityService:UtilityService,
               private alertService:AlertService,
               private activityService:ActivityService,
-              private actLookupService:ActLookupService,
               private router:Router,
              ) { }
 
@@ -113,17 +111,8 @@ this.phases=[];
             .subscribe(
 
                 data => {
-                   let al=new ActivityLookup();
-                   al.actId=data._id;
-                   al.parentId=this.model.parentId;
-                   al.level=this.model.level;
-                   this.actLookupService.create(al).subscribe(dt=>{
-                      console.log(dt);
-                   },
-                   er=>
-                   {
-                     console.log(er);
-                   });
+
+
                    this.alertService.success('Activty created!');
                     this.router.navigate(['/home']);
                 },
