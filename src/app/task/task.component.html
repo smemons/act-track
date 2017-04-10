@@ -1,0 +1,42 @@
+<form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
+        <label for="title">Task Title</label>
+        <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" required />
+        <div *ngIf="f.submitted && !title.valid" class="help-block"> Title is required</div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !desc.valid }">
+        <label for="desc">Task Description</label>
+        <textarea class="form-control" name="desc" [(ngModel)]="model.desc" #desc="ngModel" required></textarea>
+        <div *ngIf="f.submitted && !desc.valid" class="help-block"> Description is required</div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !startDate.valid }">
+        <label for="startDate">Start Date</label>
+        <p-calendar [appendTo]="aDialog" name="startDate" [icon]="true" [(ngModel)]="model.startDate" dateFormat="mm/dd/yy" dataType="string" required></p-calendar>
+
+        <div *ngIf="f.submitted && !startDate.valid" class="help-block">Start Date is required</div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !endDate.valid }">
+        <label for="startDate">Start Date</label>
+        <p-calendar [appendTo]="aDialog" name="endDate" [icon]="true" [(ngModel)]="model.endDate" dateFormat="mm/dd/yy" dataType="string" required></p-calendar>
+
+        <div *ngIf="f.submitted && !endDate.valid" class="help-block">End Date is required</div>
+    </div>
+    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
+        <label for="percentage">Completion Percentage(%)</label>
+
+
+        <input id="percentage" name="percentage" type="text" pInputText [(ngModel)]="model.percentage" style="width:200px" />
+        <p-slider name="percentage" [(ngModel)]="model.percentage" [style]="{'width':'200px'}"></p-slider>
+
+
+    </div>
+
+    <div class="form-group">
+        <button [disabled]="loading" (click)="saveTask()" [disabled]="!f.form.valid" class="btn btn-primary">Save</button>
+        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+        />
+        <button (click)="close()" class="btn btn-link">Cancel</button>
+    </div>
+</form>

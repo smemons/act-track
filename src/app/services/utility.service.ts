@@ -8,11 +8,16 @@ import { Http, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import {Router} from '@angular/router';
 
+
 @Injectable()
 export class UtilityService {
 
 passedActivity:Activity;
-constructor(private http:Http,private location:Location,private router:Router) { }
+previousUrl:string;
+constructor(private http:Http,private location:Location,private router:Router) {
+
+
+ }
 
 //get all Category
  getAllCategories() {
@@ -128,6 +133,7 @@ getAllDepts() {
   //go back
   back()
   {
-    this.location.back(); // <-- go back to previous location on cancel
+   // this.location.back(); // <-- go back to previous location on cancel
+   this.router.navigateByUrl(this.previousUrl);
   }
 }

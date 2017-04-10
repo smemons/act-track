@@ -53,6 +53,7 @@ import { CategoryComponent } from './category/category.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ListActivitiesComponent } from './activity/listActivities/listActivities.component';
 import { ViewActivityComponent } from './activity/viewActivity/viewActivity.component';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { ViewActivityComponent } from './activity/viewActivity/viewActivity.comp
     ListPhaseComponent,
     AddStatusComponent,
     ListStatusComponent,
-    TreeComponent
+    TreeComponent,
+    TaskComponent
 ],
   imports: [
     BrowserModule,

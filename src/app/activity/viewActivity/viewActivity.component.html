@@ -183,8 +183,10 @@
 
 </p-panel>
 <br/>
-<p-dialog #aDialog header="Create Task" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
-    <form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+<p-dialog #aDialog header="Create Task" [(visible)]="taskDialog" [responsive]="true" showEffect="fade" [modal]="true" [width]="300">
+    <app-task [activityId]="activity._id" (taskChanged)="taskCreated($event)" (taskClosed)="taskClosed($event)"></app-task>
+</p-dialog>
+<!--<form name="form" (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
             <label for="title">Task Title</label>
             <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" required />
@@ -210,8 +212,12 @@
             <div *ngIf="f.submitted && !endDate.valid" class="help-block">End Date is required</div>
         </div>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
-            <label for="title">Completion Percentage(%)</label>
-            <input type="text" class="form-control" name="title" [(ngModel)]="model.percentage" #percentage="ngModel" />
+            <label for="percentage">Completion Percentage(%)</label>
+
+
+            <input id="percentage" name="percentage" type="text" pInputText [(ngModel)]="model.percentage" style="width:200px" />
+            <p-slider name="percentage" [(ngModel)]="model.percentage" [style]="{'width':'200px'}"></p-slider>
+
 
         </div>
 
@@ -221,6 +227,4 @@
             />
             <button (click)="close()" class="btn btn-link">Cancel</button>
         </div>
-    </form>
-
-</p-dialog>
+    </form>-->

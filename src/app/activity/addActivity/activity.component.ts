@@ -53,7 +53,7 @@ export class ActivityComponent implements OnInit {
   ngOnInit() {
 
    //check if request is coming for a child activity to be created
-   debugger;
+
    let parentUrl=this.router.url;
    this.isChild=false;
    if(parentUrl==='/addChildActivity')

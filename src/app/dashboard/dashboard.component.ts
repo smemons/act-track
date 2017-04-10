@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit,AfterViewInit{
 
   events: any[];
   dialogVisible: boolean = false;
-  activity:Activity;
+  activity:Activity=new Activity();
   allActivities:Activity[];
   assigned:Activity[];
   created:Activity[];
@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit,AfterViewInit{
   headerConfig: any;
   statuses:Status[];
   listStatuses:SelectItem[];
+  taskDialog:boolean;
 
   isWriter:Boolean;
 
@@ -78,7 +79,6 @@ export class DashboardComponent implements OnInit,AfterViewInit{
 
     })
 
-    //this.getAllActivitiesRelated();
 
   this.headerConfig = {
 			left: 'prev,next today',
@@ -207,12 +207,12 @@ handleEventClick(event){
         col["allDay"] = true;
         if(element.createdBy===uid)
         {
-          //  col['color']=element.status==this.status?'#6FF5B2':'#D9534F';
+
             col['className']='creator';
         }
         else
         {
-         //  col['color']=element.status==this.status?'#8A9AFB':'#D9534F';
+
            col['className']='assignee';
         }
         col['color']=this.getColorFromStatus(element.statusId);
@@ -235,5 +235,19 @@ handleEventClick(event){
   {
     this.utilityService.viewActivity(id);
      //this.router.navigate(['/viewActivity', id]);
+  }
+  createTask()
+  {
+    this.taskDialog=true;
+  }
+  //task created event passed form component
+  taskCreated(task)
+  {
+    this.taskDialog=false;
+  }
+  //again through injection
+  taskClosed(val)
+  {
+    this.taskDialog=false;
   }
 }

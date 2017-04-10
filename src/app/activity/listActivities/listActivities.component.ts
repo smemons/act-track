@@ -1,3 +1,4 @@
+import { UtilityService } from '../../services/utility.service';
 import { AlertService } from './../../services/alert.service';
 import { CategoryService } from '../../services/category.service';
 import { Userservice } from './../../services/userservice.service';
@@ -19,31 +20,26 @@ declare var moment: any;
 export class ListActivitiesComponent implements OnInit {
 
   displayDialog: boolean = false;
-  activity:Activity;
+  taskDialog:boolean;
+  activity:Activity=new Activity();
   assigned:Activity[];
   created:Activity[];
   assignees: SelectItem[];
   categories:Category[];
+  selectedCategory:string;
+  listStatuses:SelectItem[];
 
   constructor(private authService:AuthService,
               private userService:Userservice,
               private categoryService:CategoryService,
               private activityService:ActivityService,
               private alertService:AlertService,
+              private utilityService:UtilityService,
               private router:Router
               ) { }
 
   ngOnInit() {
 
- //get all the users List
-    this.userService.getAll().subscribe(usrs=>{
-      this.assignees = [];
-      //get all the users and create
-       usrs.forEach(user=> {
-
-            this.assignees.push({label:user.username+'-('+ user.firstName+')' , value:user.username});
-       });
-    });
     this.categoryService.getAll().subscribe(cat=>this.categories=cat);
     let loggedInUser=this.authService.getCurrentUser();
 
@@ -58,7 +54,7 @@ export class ListActivitiesComponent implements OnInit {
                           });
 
      //get all created
-     this.activityService.getAllCreated(loggedInUser).
+                     this.activityService.getAllCreated(loggedInUser).
                           subscribe(act=>{
 
                             act.forEach(element => {
@@ -68,6 +64,18 @@ export class ListActivitiesComponent implements OnInit {
                             });
                             this.created=act
                           });
+
+                          //get all statuses for color
+
+                  this.listStatuses=[];
+                  this.utilityService.getAllStatus().subscribe(status=>{
+
+                    status.forEach(element => {
+                      this.listStatuses.push({label:element.title, value:element._id});
+                    });
+
+
+    })
   }
 
 
@@ -78,6 +86,7 @@ export class ListActivitiesComponent implements OnInit {
   {
 
    this.activity=act;
+    this.selectedCategory=this.utilityService.getTitleById(act.catId,this.categories);
    this.displayDialog = true;
   }
 
@@ -105,6 +114,24 @@ export class ListActivitiesComponent implements OnInit {
   viewActivity(act){
      this.router.navigate(['/viewActivity', act._id]);
   }
-
+closeActivityDialog()
+{
+  this.displayDialog = false;
+}
+createTask(act)
+  {
+    this.activity=act;
+    this.taskDialog=true;
+  }
+  //task created event passed form component
+  taskCreated(task)
+  {
+    this.taskDialog=false;
+  }
+  //again through injection
+  taskClosed(val)
+  {
+    this.taskDialog=false;
+  }
 
 }

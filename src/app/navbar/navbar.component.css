@@ -1,10 +1,14 @@
-.navbar-default {
+/*.navbar-default {
     font-size: 1.15em;
     font-weight: 400;
     background-color: #006b96;
     padding: 10px;
     border: 0px;
     border-radius: 0px;
+}*/
+
+.navbar-default {
+    background-color: #006b96;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -16,7 +20,8 @@
 }
 
 .navbar-default .navbar-brand {
-    color: #002433;
+    color: #ffd704;
+    font-weight: bolder;
 }
 
 .navbar-default .navbar-brand:hover {
@@ -65,7 +70,7 @@
 
 .dropdown-menu>li>a:hover,
 .dropdown-menu>li>a:focus {
-    background-color: #004059;
+    background-color: #006b96;
     color: white;
 }
 

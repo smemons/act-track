@@ -5,9 +5,10 @@ import { AlertService } from './../../services/alert.service';
 import { TaskService } from './../../services/task.service';
 import { ActivityService } from './../../services/activity.service';
 import { Activity } from './../../models/activity';
-import { ActivatedRoute, Router,Params } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/filter';
 
 @Component({
   selector: 'app-viewActivity',
@@ -15,7 +16,8 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./viewActivity.component.css']
 })
 export class ViewActivityComponent implements OnInit {
-  displayDialog:Boolean=false;
+  previousUrl:string;
+  taskDialog:Boolean=false;
   activity:Activity;
   childrenActivities:Activity[];
   parentActivity:Activity;
@@ -143,22 +145,31 @@ export class ViewActivityComponent implements OnInit {
     });
 
 
+//code to store previous url
+ this.router.events.filter(event => event instanceof NavigationEnd)
+  .subscribe(e => {
+    console.log('prev:', this.previousUrl);
+    this.previousUrl = e.url;
+  });
 
   }
 
   goback()
   {
-    this.utilityService.back();
+     this.router.navigate(['/dashboard']);
+    //  debugger;
+    // this.router.navigateByUrl(this.previousUrl);
+    // this.utilityService.back();
   }
 
   showTaskDialog()
   {
 
-    this.displayDialog=true;
+    this.taskDialog=true;
   }
   close()
   {
-    this.displayDialog=false;
+    this.taskDialog=false;
   }
   saveTask(id:string)
   {
@@ -181,7 +192,7 @@ export class ViewActivityComponent implements OnInit {
                     this.loading = false;
                 });
 
-      this.displayDialog = false;
+      this.taskDialog = false;
       this.loading=false;
   }
   //create subactivity
@@ -194,5 +205,19 @@ export class ViewActivityComponent implements OnInit {
  //viewActivity(act)
   viewActivity(id){
      this.router.navigate(['/viewActivity', id],{ skipLocationChange: true });
+  }
+
+  //task created event passed form component
+  taskCreated(task)
+  {
+    debugger;
+    this.taskDialog=false;
+    this.tasks.push(task);
+    this.cd.detectChanges();
+  }
+  //again through injection
+  taskClosed(val)
+  {
+    this.taskDialog=false;
   }
 }
