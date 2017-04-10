@@ -5,8 +5,9 @@ import { AlertService } from './../../services/alert.service';
 import { TaskService } from './../../services/task.service';
 import { ActivityService } from './../../services/activity.service';
 import { Activity } from './../../models/activity';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router,Params } from '@angular/router';
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-viewActivity',
@@ -15,7 +16,9 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 })
 export class ViewActivityComponent implements OnInit {
   displayDialog:Boolean=false;
-  activity={};
+  activity:Activity;
+  childrenActivities:Activity[];
+  parentActivity:Activity;
   model: any = {};
   tasks:Task[];
   loading = false;
@@ -44,6 +47,8 @@ export class ViewActivityComponent implements OnInit {
               private cd:ChangeDetectorRef) { }
 
   ngOnInit() {
+
+
       this.tasks=[];
       this.categories=[];
       this.focuses=[];
@@ -51,31 +56,39 @@ export class ViewActivityComponent implements OnInit {
       this.depts=[];
       this.visibilities=[];
       this.phases=[];
+      this.childrenActivities=[];
+      this.activity=new Activity();
+      let id:string;
+     this.route.params.subscribe(params => {
 
-      let id=this.route.snapshot.params['id'];
-      this.activityService.getActivity(id).subscribe(act=>{
+       id = params['id'];
+
+
+       this.parentActivity=null;
+
+      //let id=this.route.snapshot.params['id'];
+        this.activityService.getActivity(id).subscribe(act=>{
         this.activity=act;
         //get category detail
-        this.utilityService.getAllCategories().subscribe(cats=>{
+          this.utilityService.getAllCategories().subscribe(cats=>{
           this.categories=this.utilityService.getSelectItemPublished(cats,"Category");
           this.category=this.utilityService.getTitleById(act.catId,cats);
          });
        //get status
-       this.utilityService.getAllStatus().subscribe(sts=>{
-         this.statuses=this.utilityService.getSelectItemPublished(sts,null);
+          this.utilityService.getAllStatus().subscribe(sts=>{
+          this.statuses=this.utilityService.getSelectItemPublished(sts,null);
           this.status=this.utilityService.getTitleById(act.statusId,sts);
        });
 
        //get focus
        this.utilityService.getAllFocuses().subscribe(focus=>{
-         debugger;
-         this.focuses=this.utilityService.getSelectItemPublished(focus,"Focus Area");
+          this.focuses=this.utilityService.getSelectItemPublished(focus,"Focus Area");
           this.focus=this.utilityService.getTitleById(act.focusId,focus);
        });
 
       //get all depts
       this.dept=[];
-       this.utilityService.getAllDepts().subscribe(dept=>{
+         this.utilityService.getAllDepts().subscribe(dept=>{
          this.depts=this.utilityService.getSelectItemPublished(dept,null);
          //there may more then one dept
          if(act.deptId!=null)
@@ -105,14 +118,30 @@ export class ViewActivityComponent implements OnInit {
 
      //get phase
        this.utilityService.getAllPhases().subscribe(phase=>{
-         debugger;
-         this.phases=this.utilityService.getSelectItemPublished(phase,"Phase");
+
+          this.phases=this.utilityService.getSelectItemPublished(phase,"Phase");
           this.phase=this.utilityService.getTitleById(act.phaseId,phase);
        });
 
+          //get all tasks associated with this activity
+        this.taskService.getAllByActivityId(id).subscribe(tasks=>this.tasks=tasks);
+
+        //get all children activities associated with this activity
+        this.activityService.getAllChildrenById(id).subscribe(act=>{
+          debugger;
+          this.childrenActivities=act
+        });
+
+        //if parentid exist
+        if(this.activity.parentId!=null)
+        {
+
+          this.activityService.getActivity(this.activity.parentId).subscribe(el=>this.parentActivity=el);
+        }
+
       });
-      //get all tasks associated with this activity
-      this.taskService.getAllByActivityId(id).subscribe(tasks=>this.tasks=tasks);
+    });
+
 
 
   }
@@ -162,5 +191,8 @@ export class ViewActivityComponent implements OnInit {
     this.utilityService.addChildActivity();
 
   }
-
+ //viewActivity(act)
+  viewActivity(id){
+     this.router.navigate(['/viewActivity', id],{ skipLocationChange: true });
+  }
 }

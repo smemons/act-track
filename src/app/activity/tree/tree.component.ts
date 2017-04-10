@@ -14,7 +14,7 @@ export class TreeComponent implements OnInit {
   constructor(private treeService:TreeBuilderService) { }
 
   ngOnInit() {
-   debugger;
+
   //  let tree:TreeNode=[];
   //  tree.label="Root";
   //  tree.data="00";

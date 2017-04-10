@@ -103,12 +103,7 @@ export class ListActivitiesComponent implements OnInit {
 
   //viewActivity(act)
   viewActivity(act){
-    // this.router.navigateByUrl(`/viewActivity/${act._id}`);
-
-  this.router.navigate(['/viewActivity', act._id]);
-
-  //this.router.navigate(['/viewActivity', act._id]);
-    // this.activityService.viewActivity(act._id);
+     this.router.navigate(['/viewActivity', act._id]);
   }
 
 

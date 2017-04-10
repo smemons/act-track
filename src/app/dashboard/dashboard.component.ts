@@ -11,14 +11,14 @@ import { ActivityService } from './../services/activity.service';
 import { CategoryService } from './../services/category.service';
 import { Userservice } from './../services/userservice.service';
 import { AuthService } from './../services/auth.service';
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit,AfterViewInit} from '@angular/core';
 declare var moment: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit{
+export class DashboardComponent implements OnInit,AfterViewInit{
 
   events: any[];
   dialogVisible: boolean = false;
@@ -48,7 +48,9 @@ export class DashboardComponent implements OnInit{
 
               ) { }
 
-
+  ngAfterViewInit(){
+    this.getAllActivitiesRelated();
+  }
   ngOnInit() {
 
     this.events=[];
@@ -76,7 +78,7 @@ export class DashboardComponent implements OnInit{
 
     })
 
-    this.getAllActivitiesRelated();
+    //this.getAllActivitiesRelated();
 
   this.headerConfig = {
 			left: 'prev,next today',
@@ -232,5 +234,6 @@ handleEventClick(event){
   showDetail(id:string)
   {
     this.utilityService.viewActivity(id);
+     //this.router.navigate(['/viewActivity', id]);
   }
 }

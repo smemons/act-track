@@ -24,14 +24,14 @@ constructor(private http:Http) { }
   {
      return this
       .http
-      .get('/api/activity/allByParentId'+id)
+      .get('/api/activity/allByParentId/'+id)
       .map((response: Response) => response.json());
   }
 
 //build a set of node
 treeBuilder():TreeNode
 {
-  debugger;
+
   let treeRoot:TreeNode=[];
   treeRoot.label="IT Projects";
    treeRoot.data="00";
@@ -47,8 +47,7 @@ treeBuilder():TreeNode
         node.expandedIcon="fa-folder-open";
         node.collapsedIcon="fa-folder";
         node.expanded=true;
-        this.addChildNode(elm.parentId,node);
-        treeRoot.children.push(node);
+        treeRoot.children.push(this.addChildNode(elm,node));
       });
   },
   error=>{
@@ -58,16 +57,28 @@ treeBuilder():TreeNode
 }
 
 //add child node
-addChildNode(id:string,node:TreeNode)
+addChildNode(act:Activity,node:TreeNode):TreeNode
 {
-  this.getActivityByParentId(id).subscribe(act=>
-  {
 
+        node.label=act.title;
+        node.data=act._id;
+        node.expandedIcon="fa-folder-open";
+        node.collapsedIcon="fa-folder";
+        node.expanded=true;
+
+  this.getActivityByParentId(act._id).subscribe(act=>
+  {
+       node.children=[];
+       act.forEach(element => {
+         let aNode:TreeNode=[];
+        node.children.push(this.addChildNode(act,aNode))
+       });
   }
   ,
   error=>{
-    console.log("addchildnode error: "+error);
+    console.log("add child node error: "+error);
   });
+  return node;
 }
 
 }

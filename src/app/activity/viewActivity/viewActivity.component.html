@@ -15,6 +15,49 @@
                 </div>
             </p-header>
             <div class="jumbotron">
+                <div class="ui-grid-row act-aligned">
+                    <div *ngIf="childrenActivities.length > 0" class="ui-grid-col-6">
+                        <div class="panel-group">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#collapse1" class="collapsed">Related Sub Activities</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse1" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <ul class="list-group">
+                                            <li *ngFor="let anAct of childrenActivities" class="list-group-item list-group-item-success"><a style="cursor: pointer" (click)="viewActivity(anAct._id)">{{anAct.title}}</a></li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="parentActivity!=null" class="ui-grid-col-6">
+                        <div class="panel-group">
+                            <div class="panel panel-warning">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#collapse2" class="collapsed">Parent Activity</a>
+                                    </h4>
+                                </div>
+                                <div id="collapse2" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+
+                                        <ul class="list-group">
+                                            <li class="list-group-item list-group-item-warning"> <a style="cursor: pointer" (click)="viewActivity(parentActivity._id)">{{parentActivity.title}}</a></li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <button *ngIf="status!='Closed'" class="btn btn-primary btn-lg pull-left" (click)="showTaskDialog()" role="button">Create Task</button>
                 <div class="clear"></div>
                 <h2>{{activity.title}}</h2>
@@ -127,6 +170,7 @@
                 {{task[col.field]|date }}
             </template>
         </p-column>
+        <p-column field="percentage" header="(%)"></p-column>
         <p-column field="createdBy" header="Created By" [filter]="true" filterPlaceholder="Search"></p-column>
         <p-column field="createdAt" header="Created At">
             <template let-col let-task="rowData" pTemplate="body">

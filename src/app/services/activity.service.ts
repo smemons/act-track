@@ -72,5 +72,13 @@ update(activity:Activity)
       .get('/api/activity/allCreated/'+userId)
       .map((response: Response) => response.json());
   }
+  //get all children
+   getAllChildrenById(id)
+  {
+     return this
+      .http
+      .get('/api/activity/allByParentId/'+id)
+      .map((response: Response) => response.json());
+  }
 
 }
