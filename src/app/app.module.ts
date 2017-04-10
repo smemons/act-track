@@ -1,6 +1,6 @@
 import { TreeBuilderService } from './services/treeBuilder.service';
 import { TreeComponent } from './activity/tree/tree.component';
-import { ActLookupService } from './services/actLookup.service';
+
 import { StatusService } from './services/status.service';
 import { ListStatusComponent } from './status/listStatus/listStatus.component';
 import { AddStatusComponent } from './status/addStatus/addStatus.component';
@@ -126,7 +126,7 @@ import { TaskComponent } from './task/task.component';
     PhaseService,
     UtilityService,
     StatusService,
-    ActLookupService,
+
     TreeBuilderService
   ],
   bootstrap: [AppComponent]

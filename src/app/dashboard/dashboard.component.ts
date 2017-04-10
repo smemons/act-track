@@ -50,6 +50,7 @@ export class DashboardComponent implements OnInit,AfterViewInit{
               ) { }
 
   ngAfterViewInit(){
+
     this.getAllActivitiesRelated();
   }
   ngOnInit() {
@@ -185,6 +186,7 @@ handleEventClick(event){
 
         let uid=this.authService.getCurrentUser();
      this.activityService.getAllByUserId(uid).subscribe(acts=>{
+
           acts.forEach(element=>{
 
           let obj=this.formCalanderItem(element);
@@ -250,4 +252,10 @@ handleEventClick(event){
   {
     this.taskDialog=false;
   }
+  handleChange(view)
+  {
+
+    this.cd.detectChanges();
+  }
+
 }
