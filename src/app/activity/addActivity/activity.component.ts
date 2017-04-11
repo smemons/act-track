@@ -48,6 +48,7 @@ export class ActivityComponent implements OnInit {
               private alertService:AlertService,
               private activityService:ActivityService,
               private statusService:StatusService,
+              private cd:ChangeDetectorRef,
               private router:Router,
              ) { }
 
@@ -78,6 +79,8 @@ export class ActivityComponent implements OnInit {
 
       if(chg)
       {
+            console.log("reloading statuses again!");
+            this.cd.detectChanges();
             this.utilityService.getAllStatus().subscribe(sts=>{
             this.statuses=this.utilityService.getSelectItemPublished(sts,null);
           });
