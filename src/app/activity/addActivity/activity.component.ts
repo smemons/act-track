@@ -10,17 +10,17 @@ import { Userservice } from './../../services/userservice.service';
 import { Category } from './../../models/category';
 import { User } from './../../models/user';
 import { forEach } from '@angular/router/src/utils/collection';
-import { Component, OnInit, ChangeDetectorRef,ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {SelectItem} from 'primeng/primeng';
 declare var moment: any;
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./activity.component.css']
+
 })
-export class ActivityComponent implements OnInit {
+export class ActivityComponent implements OnInit,AfterViewInit {
       model : any = {};
       loading = false;
       users : User[];
@@ -53,6 +53,10 @@ export class ActivityComponent implements OnInit {
               private router:Router,
              ) { }
 
+ngAfterViewInit()
+{
+  this.cd.detectChanges();
+}
   ngOnInit() {
 
 
@@ -80,8 +84,8 @@ export class ActivityComponent implements OnInit {
 
       if(chg)
       {
-            console.log("reloading statuses again!");
-            this.cd.markForCheck();
+            console.log("reloading statuses again! with observer ");
+
             this.utilityService.getAllStatus().subscribe(sts=>{
             this.statuses=this.utilityService.getSelectItemPublished(sts,null);
           });
