@@ -45,13 +45,13 @@ export class ActivityComponent implements OnInit {
               private utilityService:UtilityService,
               private alertService:AlertService,
               private activityService:ActivityService,
-              private cd:ChangeDetectorRef,
+
               private router:Router,
              ) { }
 
   ngOnInit() {
 
-    this.cd.detectChanges();
+
    //check if request is coming for a child activity to be created
 
    let parentUrl=this.router.url;
