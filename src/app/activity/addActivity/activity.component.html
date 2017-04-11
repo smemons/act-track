@@ -11,7 +11,7 @@
         </div>
 
     </div>
-    <form name="form" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" novalidate>
+    <form name="form" autocomplete="off" (ngSubmit)="f.form.valid && createActivity()" #f="ngForm" novalidate>
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !title.valid }">
             <label for="title">Title</label>
             <input type="text" class="form-control" name="title" [(ngModel)]="model.title" #title="ngModel" required />
