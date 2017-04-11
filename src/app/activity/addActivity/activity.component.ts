@@ -21,25 +21,25 @@ export class ActivityComponent implements OnInit {
       model : any = {};
       loading = false;
       users : User[];
-      foundUsers : string[];
+      foundUsers : string[]=[];
       isChild : boolean;
       parentTitle : string;
       category : string;
-      categories : SelectItem[];
+      categories : SelectItem[]=[];
       status : string;
-      statuses : SelectItem[];
+      statuses : SelectItem[]=[];
 
       focus : string;
-      focuses : SelectItem[];
+      focuses : SelectItem[]=[];
 
       dept : string[];
-      depts : SelectItem[];
+      depts : SelectItem[]=[];
 
       phase : string;
-      phases : SelectItem[];
+      phases : SelectItem[]=[];
 
       visibility : string[];
-      visibilities : SelectItem[];
+      visibilities : SelectItem[]=[];
 
   constructor(private userService:Userservice,
               private utilityService:UtilityService,
@@ -81,26 +81,26 @@ export class ActivityComponent implements OnInit {
     this.utilityService.getAllCategories().subscribe(cat=>this.categories=cat);
 
   //get all Status
-this.statuses=[];
+
     this.utilityService.getAllStatus().subscribe(sts=>{
       this.statuses=this.utilityService.getSelectItemPublished(sts,null);
   });
 
    //get all focus areas
-this.focuses=[];
+//this.focuses=[];
     this.utilityService.getAllFocuses().subscribe(foc=>{
        this.focuses=this.utilityService.getSelectItemPublished(foc,"Focus Area");
   });
 
   /////////////////////
    //get all visiblities areas
-this.visibilities=[];
+//this.visibilities=[];
     this.utilityService.getAllVisibilities().subscribe(vis=>{
      this.visibilities=this.utilityService.getSelectItemPublished(vis,null);
   });
   /////////////////////
    //get all phases areas
-this.phases=[];
+//this.phases=[];
     this.utilityService.getAllPhases().subscribe(phase=>{
        this.phases=this.utilityService.getSelectItemPublished(phase,"Phase");
     });
