@@ -57,15 +57,8 @@ export class DashboardComponent implements OnInit,AfterViewInit{
 
     this.events=[];
     this.allActivities=[];
-    //get all the users List
-    this.userService.getAll().subscribe(usrs=>{
-      this.assignees = [];
-      //get all the users and create
-       usrs.forEach(user=> {
-
-            this.assignees.push({label:user.username+'-('+ user.firstName+')' , value:user.username});
-       });
-    });
+//fetch all the category
+    this.cd.markForCheck();
     this.categoryService.getAll().subscribe(cat=>this.categories=cat);
 
     //get all statuses for color
