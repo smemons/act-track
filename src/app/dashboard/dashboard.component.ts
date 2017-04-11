@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit,AfterViewInit,OnDestroy{
 
   ngAfterViewInit(){
 
-    this.getAllActivitiesRelated();
+   // this.getAllActivitiesRelated();
     console.log('Dashboard-ngAfterViewInit');
 
   }
@@ -70,15 +70,19 @@ export class DashboardComponent implements OnInit,AfterViewInit,OnDestroy{
     //    });
     // });
 
- //observers section
+   //observers section
     //check if status is changed
     this.activityService.isActivityChanged.subscribe(chg=>{
 
       if(chg)
       {
-        debugger;
-            console.log("reloading activities again! with observer ");
+
           this.getAllActivitiesRelated();
+          let uid=this.authService.getCurrentUser();
+         this.activityService.getAllByUserId(uid).subscribe(acts=>{
+
+           console.log(acts);
+         });
 
       }
 
