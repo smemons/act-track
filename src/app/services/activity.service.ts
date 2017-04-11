@@ -1,3 +1,4 @@
+import { Subject, BehaviorSubject } from 'rxjs/Rx';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Http, Response } from '@angular/http';
@@ -7,7 +8,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ActivityService {
-
+isActivityChanged: Subject<boolean> = new BehaviorSubject(false);
+isActivityChanged$ = this.isActivityChanged.asObservable();
 constructor(private authService:AuthService,private http:Http) { }
 
 

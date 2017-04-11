@@ -137,8 +137,9 @@ this.phases=[];
 
                 data => {
 
-
+                   debugger;
                    this.alertService.success('Activty created!');
+                   this.activityService.isActivityChanged.next(true);
                     this.router.navigate(['/home']);
                 },
                 error => {

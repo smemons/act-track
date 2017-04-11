@@ -11,14 +11,14 @@ import { ActivityService } from './../services/activity.service';
 import { CategoryService } from './../services/category.service';
 import { Userservice } from './../services/userservice.service';
 import { AuthService } from './../services/auth.service';
-import { ChangeDetectorRef, Component, OnInit,AfterViewInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 declare var moment: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit,AfterViewInit{
+export class DashboardComponent implements OnInit,AfterViewInit,OnDestroy{
 
   events: any[];
   dialogVisible: boolean = false;
@@ -53,7 +53,8 @@ export class DashboardComponent implements OnInit,AfterViewInit{
   ngAfterViewInit(){
 
     this.getAllActivitiesRelated();
-    this.cd.detectChanges();
+    console.log('Dashboard-ngAfterViewInit');
+
   }
   ngOnInit() {
 
@@ -68,6 +69,22 @@ export class DashboardComponent implements OnInit,AfterViewInit{
     //         this.assignees.push({label:user.username+'-('+ user.firstName+')' , value:user.username});
     //    });
     // });
+
+ //observers section
+    //check if status is changed
+    this.activityService.isActivityChanged.subscribe(chg=>{
+
+      if(chg)
+      {
+        debugger;
+            console.log("reloading activities again! with observer ");
+          this.getAllActivitiesRelated();
+
+      }
+
+    })
+
+
     this.categoryService.getAll().subscribe(cat=>this.categories=cat);
 
     //get all statuses for color
@@ -257,7 +274,11 @@ handleEventClick(event){
   handleChange(view)
   {
 
-
   }
 
+ngOnDestroy()
+{
+  console.log('Dashboard-ngOnDestroy');
+
+}
 }
