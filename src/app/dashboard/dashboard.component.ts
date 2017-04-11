@@ -44,8 +44,8 @@ export class DashboardComponent implements OnInit,AfterViewInit{
               private activityService:ActivityService,
               private utilityService:UtilityService,
               private alertService:AlertService,
-              private router:Router,
-              private cd: ChangeDetectorRef
+              private router:Router
+
 
               ) { }
 
@@ -57,8 +57,15 @@ export class DashboardComponent implements OnInit,AfterViewInit{
 
     this.events=[];
     this.allActivities=[];
-//fetch all the category
-    this.cd.markForCheck();
+    // //get all the users List
+    // this.userService.getAll().subscribe(usrs=>{
+    //   this.assignees = [];
+    //   //get all the users and create
+    //    usrs.forEach(user=> {
+
+    //         this.assignees.push({label:user.username+'-('+ user.firstName+')' , value:user.username});
+    //    });
+    // });
     this.categoryService.getAll().subscribe(cat=>this.categories=cat);
 
     //get all statuses for color
@@ -127,7 +134,7 @@ handleEventClick(event){
                    this.alertService.success('Activty updated!');
                    this.dialogVisible=false;
                    this.updateSchedulerOnUpdate(act);
-                   this.cd.detectChanges();
+
                 },
                 error => {
 
@@ -146,7 +153,7 @@ handleEventClick(event){
                    this.events.push(this.formCalanderItem(this.activity));
                    this.dialogVisible=false;
                    this.activity=new Activity();
-                   this.cd.detectChanges();
+
 
                 },
                 error => {
@@ -248,7 +255,7 @@ handleEventClick(event){
   handleChange(view)
   {
 
-    this.cd.detectChanges();
+
   }
 
 }

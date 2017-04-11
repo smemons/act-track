@@ -45,8 +45,8 @@ export class ViewActivityComponent implements OnInit {
               private taskService:TaskService,
               private alertService:AlertService,
               private activityService:ActivityService,
-              private utilityService:UtilityService,
-              private cd:ChangeDetectorRef) { }
+              private utilityService:UtilityService
+              ) { }
 
   ngOnInit() {
 
@@ -182,7 +182,7 @@ export class ViewActivityComponent implements OnInit {
                     this.alertService.success("Task saved!");
                     //this.taskService.getAllByActivityId(id).subscribe(tasks=>this.tasks=tasks);
                     this.tasks.push(data);
-                    this.cd.detectChanges();
+
 
                 },
                 error => {
@@ -213,7 +213,7 @@ export class ViewActivityComponent implements OnInit {
     debugger;
     this.taskDialog=false;
     this.tasks.push(task);
-    this.cd.detectChanges();
+
   }
   //again through injection
   taskClosed(val)

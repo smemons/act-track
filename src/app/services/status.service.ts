@@ -2,10 +2,12 @@ import { Status } from './../models/status';
 import { Http, Response } from '@angular/http';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
-
+import { Subject,BehaviorSubject } from 'rxjs/Rx';
 @Injectable()
 export class StatusService {
 
+isStatusChanged: Subject<boolean> = new BehaviorSubject(false);
+  isLoggedIn$ = this.isStatusChanged.asObservable();
   constructor(private http : Http, private authService : AuthService) {}
 
   //create Status
@@ -20,6 +22,7 @@ export class StatusService {
       .http
       .post('/api/status', status)
       .map((response : Response) => response.json());
+
   }
   ///////////////////////////////////////////////// get all Status
   getAll() {

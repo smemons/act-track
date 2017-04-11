@@ -1,3 +1,5 @@
+import { StatusService } from './../../services/status.service';
+
 
 
 import { Status } from './../../models/status';
@@ -21,7 +23,7 @@ export class ActivityComponent implements OnInit {
       model : any = {};
       loading = false;
       users : User[];
-      foundUsers : string[]=[];
+      foundUsers : string[];
       isChild : boolean;
       parentTitle : string;
       category : string;
@@ -30,22 +32,22 @@ export class ActivityComponent implements OnInit {
       statuses : SelectItem[]=[];
 
       focus : string;
-      focuses : SelectItem[]=[];
+      focuses : SelectItem[];
 
       dept : string[];
-      depts : SelectItem[]=[];
+      depts : SelectItem[];
 
       phase : string;
-      phases : SelectItem[]=[];
+      phases : SelectItem[];
 
       visibility : string[];
-      visibilities : SelectItem[]=[];
+      visibilities : SelectItem[];
 
   constructor(private userService:Userservice,
               private utilityService:UtilityService,
               private alertService:AlertService,
               private activityService:ActivityService,
-
+              private statusService:StatusService,
               private router:Router,
              ) { }
 
@@ -70,6 +72,19 @@ export class ActivityComponent implements OnInit {
       this.model.level=this.model.level+1;
    }
 
+    //observers section
+    //check if status is changed
+    this.statusService.isStatusChanged.subscribe(chg=>{
+
+      if(chg)
+      {
+            this.utilityService.getAllStatus().subscribe(sts=>{
+            this.statuses=this.utilityService.getSelectItemPublished(sts,null);
+          });
+      }
+
+    })
+
     // //get all the dept List
     this.depts = [];
     this.utilityService.getAllDepts().subscribe(depts=>{
@@ -83,24 +98,24 @@ export class ActivityComponent implements OnInit {
   //get all Status
 
     this.utilityService.getAllStatus().subscribe(sts=>{
-      this.statuses=this.utilityService.getSelectItemPublished(sts,null);
+    this.statuses=this.utilityService.getSelectItemPublished(sts,null);
   });
 
    //get all focus areas
-//this.focuses=[];
+this.focuses=[];
     this.utilityService.getAllFocuses().subscribe(foc=>{
        this.focuses=this.utilityService.getSelectItemPublished(foc,"Focus Area");
   });
 
   /////////////////////
    //get all visiblities areas
-//this.visibilities=[];
+this.visibilities=[];
     this.utilityService.getAllVisibilities().subscribe(vis=>{
      this.visibilities=this.utilityService.getSelectItemPublished(vis,null);
   });
   /////////////////////
    //get all phases areas
-//this.phases=[];
+this.phases=[];
     this.utilityService.getAllPhases().subscribe(phase=>{
        this.phases=this.utilityService.getSelectItemPublished(phase,"Phase");
     });
