@@ -11,14 +11,14 @@ import { ActivityService } from './../services/activity.service';
 import { CategoryService } from './../services/category.service';
 import { Userservice } from './../services/userservice.service';
 import { AuthService } from './../services/auth.service';
-import { ChangeDetectorRef, Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, AfterViewInit } from '@angular/core';
 declare var moment: any;
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit,AfterViewInit,OnDestroy{
+export class DashboardComponent implements OnInit,AfterViewInit{
 
   events: any[];
   dialogVisible: boolean = false;
@@ -52,7 +52,7 @@ export class DashboardComponent implements OnInit,AfterViewInit,OnDestroy{
 
   ngAfterViewInit(){
 
-   // this.getAllActivitiesRelated();
+    this.getAllActivitiesRelated();
     console.log('Dashboard-ngAfterViewInit');
 
   }
@@ -72,17 +72,12 @@ export class DashboardComponent implements OnInit,AfterViewInit,OnDestroy{
 
    //observers section
     //check if status is changed
-    this.activityService.isActivityChanged.subscribe(chg=>{
+    this.activityService.isActivityChanged.subscribe(act=>{
 
-      if(chg)
+      if(this.activityService.isReceived)
       {
-
-          this.getAllActivitiesRelated();
-          let uid=this.authService.getCurrentUser();
-         this.activityService.getAllByUserId(uid).subscribe(acts=>{
-
-           console.log(acts);
-         });
+        this.activityService.isReceived=false;
+        this.events.push(this.formCalanderItem(act));
 
       }
 
@@ -275,14 +270,6 @@ handleEventClick(event){
   {
     this.taskDialog=false;
   }
-  handleChange(view)
-  {
 
-  }
 
-ngOnDestroy()
-{
-  console.log('Dashboard-ngOnDestroy');
-
-}
 }

@@ -8,7 +8,8 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ActivityService {
-isActivityChanged: Subject<boolean> = new BehaviorSubject(false);
+isReceived:boolean;
+isActivityChanged: Subject<any> = new BehaviorSubject(Activity);
 isActivityChanged$ = this.isActivityChanged.asObservable();
 constructor(private authService:AuthService,private http:Http) { }
 

@@ -8,7 +8,7 @@ var getActivity = function(req, res, next) {
             next(err);
         } else {
 
-            console.log('Got Activity :' + docs);
+            // console.log('Got Activity :' + docs);
             res.json(docs);
         }
     });
@@ -24,7 +24,7 @@ var saveActivity = function(req, res, next) {
 
             return next(err);
         } else {
-            console.log('activiity created ' + act);
+            // console.log('activiity created ' + act);
             return res.json(act);
         }
     });
