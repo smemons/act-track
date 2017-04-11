@@ -22,4 +22,4 @@ const ActSchema = new Schema({
     level: { type: Number, default: 0 }
 
 });
-module.exports = mongoose.model('Acivity', ActSchema)
+module.exports = mongoose.model('Activity', ActSchema)
