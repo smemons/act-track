@@ -1,3 +1,4 @@
+import { element } from 'protractor';
 import { Activity } from './../models/activity';
 import { TreeNode } from 'primeng/primeng';
 import { Tree } from './../models/tree';
@@ -66,19 +67,21 @@ addChildNode(act:Activity,node:TreeNode):TreeNode
         node.collapsedIcon="fa-folder";
         node.expanded=true;
 
-  this.getActivityByParentId(act._id).subscribe(act=>
+  this.getActivityByParentId(act._id).subscribe(myact=>
   {
        node.children=[];
-       act.forEach(element => {
+       myact.forEach(element => {
          let aNode:TreeNode=[];
-        node.children.push(this.addChildNode(act,aNode))
+        node.children.push(this.addChildNode(element,aNode))
        });
   }
   ,
   error=>{
     console.log("add child node error: "+error);
   });
+  node.leaf=false;
   return node;
 }
+
 
 }
