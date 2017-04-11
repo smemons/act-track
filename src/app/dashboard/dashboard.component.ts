@@ -44,6 +44,7 @@ export class DashboardComponent implements OnInit,AfterViewInit{
               private activityService:ActivityService,
               private utilityService:UtilityService,
               private alertService:AlertService,
+              private cd:ChangeDetectorRef,
               private router:Router
 
 
@@ -52,6 +53,7 @@ export class DashboardComponent implements OnInit,AfterViewInit{
   ngAfterViewInit(){
 
     this.getAllActivitiesRelated();
+    this.cd.detectChanges();
   }
   ngOnInit() {
 
