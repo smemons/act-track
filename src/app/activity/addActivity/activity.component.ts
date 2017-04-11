@@ -10,7 +10,7 @@ import { Userservice } from './../../services/userservice.service';
 import { Category } from './../../models/category';
 import { User } from './../../models/user';
 import { forEach } from '@angular/router/src/utils/collection';
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import {SelectItem} from 'primeng/primeng';
 declare var moment: any;
@@ -19,7 +19,7 @@ declare var moment: any;
   templateUrl: './activity.component.html',
   styleUrls: ['./activity.component.css']
 })
-export class ActivityComponent implements OnInit {
+export class ActivityComponent implements OnInit,OnDestroy {
       model : any = {};
       loading = false;
       users : User[];
@@ -163,5 +163,11 @@ this.phases=[];
 viewActivity(id:String)
 {
   this.utilityService.viewActivity(id);
+}
+
+//ng on destroy
+ngOnDestroy()
+{
+  this.cd.detach();
 }
 }
