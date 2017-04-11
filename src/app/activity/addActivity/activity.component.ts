@@ -10,16 +10,17 @@ import { Userservice } from './../../services/userservice.service';
 import { Category } from './../../models/category';
 import { User } from './../../models/user';
 import { forEach } from '@angular/router/src/utils/collection';
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef,ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import {SelectItem} from 'primeng/primeng';
 declare var moment: any;
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
-  styleUrls: ['./activity.component.css']
+  styleUrls: ['./activity.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ActivityComponent implements OnInit,OnDestroy {
+export class ActivityComponent implements OnInit {
       model : any = {};
       loading = false;
       users : User[];
@@ -80,7 +81,7 @@ export class ActivityComponent implements OnInit,OnDestroy {
       if(chg)
       {
             console.log("reloading statuses again!");
-            this.cd.detectChanges();
+            this.cd.markForCheck();
             this.utilityService.getAllStatus().subscribe(sts=>{
             this.statuses=this.utilityService.getSelectItemPublished(sts,null);
           });
@@ -163,11 +164,5 @@ this.phases=[];
 viewActivity(id:String)
 {
   this.utilityService.viewActivity(id);
-}
-
-//ng on destroy
-ngOnDestroy()
-{
-  this.cd.detach();
 }
 }
