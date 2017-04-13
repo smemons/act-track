@@ -210,9 +210,9 @@ export class ViewActivityComponent implements OnInit {
   //task created event passed form component
   taskCreated(task)
   {
-    debugger;
+
     this.taskDialog=false;
-    this.tasks.push(task);
+    this.tasks.unshift(task);
 
   }
   //again through injection

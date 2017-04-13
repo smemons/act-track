@@ -3,23 +3,31 @@
     <div class="col-lg-6 col-md-6">
         <p-panel header="Activities created By me" [toggleable]="true">
             <div class="at-sm-panel">
-                <p-dataTable [value]="created" [rows]="5" [paginator]="true">
+                <p-dataTable [value]="created" [rows]="10" [paginator]="true">
 
-                    <p-column field="title" header="Title"></p-column>
+                    <p-column field="title" header="Title" [style]="{'width':'180px'}">
+                        <template let-col let-act="rowData" pTemplate="body">
+                            {{act[col.field]|truncate:20 }}
+                        </template>
+                    </p-column>
 
 
                     <p-column field="startDate" header="Start Date">
                         <template let-col let-act="rowData" pTemplate="body">
-                            {{act[col.field]|date }}
+                            {{act[col.field]|date:'shortDate' }}
                         </template>
                     </p-column>
                     <p-column field="endDate" header="End Date">
                         <template let-col let-act="rowData" pTemplate="body">
-                            {{act[col.field]|date }}
+                            {{act[col.field]|date :'shortDate'}}
                         </template>
                     </p-column>
-                    <p-column field="assignee" header="Assignee"></p-column>
-                    <p-column field="percentage" header="%Complete">
+                    <p-column field="assignee" header="Assignee">
+                        <template let-col let-act="rowData" pTemplate="body">
+                            {{act[col.field]|truncate:15 }}
+                        </template>
+                    </p-column>
+                    <p-column field="percentage" header="%" [style]="{'width':'40px'}">
 
                     </p-column>
                     <p-column styleClass="col-button" [style]="{'width':'105px'}">
@@ -40,23 +48,31 @@
     <div class="col-lg-6 col-md-6">
         <p-panel header="Activities assigned to me" [toggleable]="true">
             <div class="at-sm-panel">
-                <p-dataTable [value]="assigned" [rows]="5" [paginator]="true">
+                <p-dataTable [value]="assigned" [rows]="10" [paginator]="true">
 
-                    <p-column field="title" header="Title"></p-column>
-                    <p-column field="desc" header="Description"></p-column>
+                    <p-column field="title" header="Title" [style]="{'width':'180px'}">
+                        <template let-col let-act="rowData" pTemplate="body">
+                            {{act[col.field]|truncate:20 }}
+                        </template>
+                    </p-column>
+
 
                     <p-column field="startDate" header="Start Date">
                         <template let-col let-act="rowData" pTemplate="body">
-                            {{act[col.field]|date }}
+                            {{act[col.field]|date :'shortDate'}}
                         </template>
                     </p-column>
                     <p-column field="endDate" header="End Date">
                         <template let-col let-act="rowData" pTemplate="body">
-                            {{act[col.field]|date }}
+                            {{act[col.field]|date:'shortDate' }}
                         </template>
                     </p-column>
-                    <p-column field="createdBy" header="Created By"></p-column>
-                    <p-column field="percentage" header="%Complete">
+                    <p-column field="createdBy" header="Created By">
+                        <template let-col let-act="rowData" pTemplate="body">
+                            {{act[col.field]|truncate:15 }}
+                        </template>
+                    </p-column>
+                    <p-column field="percentage" header="%" [style]="{'width':'40px'}">
 
                     </p-column>
                     <p-column styleClass="col-button" [style]="{'width':'80px'}">

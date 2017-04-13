@@ -43,7 +43,7 @@ var getAllByActivity = function(req, res, next) {
 
             res.json(docs);
         }
-    });
+    }).sort({ 'createdAt': -1 });
 }
 
 

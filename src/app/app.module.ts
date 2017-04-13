@@ -1,3 +1,4 @@
+import { TruncatePipe } from './services/truncate.pipe';
 import { TreeBuilderService } from './services/treeBuilder.service';
 import { TreeComponent } from './activity/tree/tree.component';
 
@@ -46,7 +47,7 @@ import { UserComponent } from './user/user.component';
 import { AlertComponent } from './alert/alert.component';
 import {GrowlModule,ListboxModule,CalendarModule,PanelModule,DataTableModule,
   InputTextareaModule,InputTextModule,DialogModule,InputSwitchModule,
-  ScheduleModule,ConfirmDialogModule,ConfirmationService,AutoCompleteModule,
+  ConfirmDialogModule,ConfirmationService,AutoCompleteModule,
   SelectButtonModule,SliderModule,MultiSelectModule,DropdownModule,
   FileUploadModule,TabViewModule,TreeModule} from 'primeng/primeng';
 import { CategoryComponent } from './category/category.component';
@@ -83,7 +84,8 @@ import { TaskComponent } from './task/task.component';
     AddStatusComponent,
     ListStatusComponent,
     TreeComponent,
-    TaskComponent
+    TaskComponent,
+    TruncatePipe
 ],
   imports: [
     BrowserModule,
@@ -98,7 +100,7 @@ import { TaskComponent } from './task/task.component';
     InputTextModule,
     DialogModule,
     InputSwitchModule,
-    ScheduleModule,
+
     ConfirmDialogModule,
     AutoCompleteModule,
     SelectButtonModule,
@@ -126,8 +128,8 @@ import { TaskComponent } from './task/task.component';
     PhaseService,
     UtilityService,
     StatusService,
-
-    TreeBuilderService
+    TreeBuilderService,
+    TruncatePipe
   ],
   bootstrap: [AppComponent]
 })
