@@ -16,7 +16,7 @@ import 'rxjs/add/operator/filter';
   styleUrls: ['./viewActivity.component.css']
 })
 export class ViewActivityComponent implements OnInit {
-  previousUrl:string;
+
   taskDialog:Boolean=false;
   activity:Activity;
   childrenActivities:Activity[];
@@ -145,12 +145,7 @@ export class ViewActivityComponent implements OnInit {
     });
 
 
-//code to store previous url
- this.router.events.filter(event => event instanceof NavigationEnd)
-  .subscribe(e => {
-    console.log('prev:', this.previousUrl);
-    this.previousUrl = e.url;
-  });
+
 
   }
 

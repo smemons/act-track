@@ -1,7 +1,7 @@
 import { TruncatePipe } from './services/truncate.pipe';
 import { TreeBuilderService } from './services/treeBuilder.service';
 import { TreeComponent } from './activity/tree/tree.component';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StatusService } from './services/status.service';
 import { ListStatusComponent } from './status/listStatus/listStatus.component';
 import { AddStatusComponent } from './status/addStatus/addStatus.component';
@@ -85,7 +85,8 @@ import { TaskComponent } from './task/task.component';
     ListStatusComponent,
     TreeComponent,
     TaskComponent,
-    TruncatePipe
+    TruncatePipe,
+    BrowserAnimationsModule
 ],
   imports: [
     BrowserModule,
